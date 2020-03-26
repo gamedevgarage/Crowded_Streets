@@ -1,0 +1,40 @@
+{
+	"name": "smsg",
+	"version": "0.0.1",
+	"description": "Super Mega Space Game! Utils",
+	"author": "M. Emin Oner",
+	"main": "main.js",
+	"scene-script": "scene_walker.js",
+	"main-menu": {
+
+
+		"SMSG!/Split Polygon Collider": {
+			"message": "smsg:split_polygon_collider"
+		},
+
+		"SMSG!/Reverse Polygon Collider": {
+			"message": "smsg:reverse_polygon_collider"
+		},
+
+		"SMSG!/Fix Joints": {
+			"message": "smsg:fix_joints"
+		},
+
+		"SMSG!/Fix Scale": {
+			"message": "smsg:fix_scale"
+		},
+
+		"SMSG!/Sort Actions": {
+			"message": "smsg:sort_actions"
+		},
+
+		"SMSG!/Remove None Actions": {
+			"message": "smsg:remove_none_actions"
+		},
+
+		"SMSG!/Find Action": {
+			"message": "smsg:find_action"
+		}
+
+	}
+}
