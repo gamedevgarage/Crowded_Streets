@@ -14,7 +14,8 @@ cc.Class({
         // Globalize
         smsg.Main_Game_Control = this;
         smsg.Audio_Control = require("audio_control"); // initializes itself
-        
+        smsg.Game_Layer = cc.find("Game_Layer");
+        smsg.OBJECT_TAG_LIST = require("object_tag_list");
     },
 
     onLoad(){
@@ -34,7 +35,5 @@ cc.Class({
             Bits.e_shapeBit;
         }
     }
-
-
-    
+ 
 });

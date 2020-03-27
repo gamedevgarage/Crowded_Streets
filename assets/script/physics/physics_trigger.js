@@ -81,6 +81,9 @@ var PHYSICS_TRIGGER = cc.Class({
 
     },
 
+    __preload(){
+        this.node.physics_trigger = this;
+    },
 
     onLoad () {
 
@@ -347,6 +350,16 @@ var PHYSICS_TRIGGER = cc.Class({
 
         this.onHit(contact, selfCollider, otherCollider);
         
+    },
+
+    // Public
+    Node_In_List(node){ // Check if node is in collided list
+        for(let i = 0 ; i < this.Bodies.length ; i++){
+            if(this.Bodies[i].node === node){
+                return true;
+            }
+        }
+        return false;
     },
 
     // Save Game

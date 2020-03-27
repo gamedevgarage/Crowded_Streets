@@ -1,5 +1,28 @@
-
+player_control:
+   - Warning button and action
+   - Siren button and action
 
 citizen_control:
 OK - Random walk
-** - Return home
+OK - Return home
+OK - Enter home
+OK - Exit home
+   - Police/Citizen close actions
+   - Siren/Citizen actions
+   - Infection mechanics
+      - Sneeze
+	  - Infect in range
+	  - Get well at home
+   - Improve walking with pathfinding
+
+home_control:
+OK - Spawn Citizen
+OK - Home Citizen
+   
+indicator_control:
+   - Infected: 12/50
+   - Healed: 5
+   - Home:40
+   - Street:10
+
+

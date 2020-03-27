@@ -1,5 +1,5 @@
 // Action type
-var ACTION_TYPE = require("C:/Cocos_Projects/SMSG/project_base/SMSG_v02/assets/source/script/Physics/action_type");
+var ACTION_TYPE = require("../../assets/script/physics/action_type.js");
 
 //Prompt
 const prompt = require('electron-prompt');

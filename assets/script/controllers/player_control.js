@@ -58,4 +58,8 @@ cc.Class({
 
     },
 
+    Warn_Citizen(node){
+        node.citizen_control && node.citizen_control.Go_Home();
+    },
+
 });

@@ -2,7 +2,8 @@
 
 var CITIZEN_STATE_LIST = cc.Enum({
     Idle:-1,
-    Walk:-1,
+    Walk_Random:-1,
+    Walk_Home:-1,
 });
 
 cc.Class({
@@ -12,11 +13,16 @@ cc.Class({
 
         Sensor:cc.Node,
 
-        Target_Node:cc.Node,
+        Infected:{
+            default:false,
+            tooltip:"Infection status",
+        },
 
     },
 
     __preload(){
+        this.node.citizen_control = this;
+        this.node.smsg_tag = smsg.util.Get_Bit_Key(smsg.OBJECT_TAG_LIST.Citizen);
     },
 
     onDestroy(){
@@ -40,28 +46,26 @@ cc.Class({
         this.Target_Distance = 400;
         this.Min_Clear_Distance = 200; // Checks if this much area is clear when setting target.
 
+        this.Sensor_Off_Duration = 1;
 
-    },
-
-    start () {
-
-        this.Change_State(CITIZEN_STATE_LIST.Idle);
 
     },
 
     update (dt) {
 
+        let cur_pos;
+        let walk_vec;
         switch(this.STATE){
 
             case CITIZEN_STATE_LIST.Idle: // IDLE
                 this.Idle_Time -= dt;
                 if(this.Idle_Time <= 0){
-                    this.Change_State(CITIZEN_STATE_LIST.Walk);
+                    this.Change_State(CITIZEN_STATE_LIST.Walk_Random);
                 }
             break;
 
-            case CITIZEN_STATE_LIST.Walk: // WALK
-                let cur_pos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+            case CITIZEN_STATE_LIST.Walk_Random: // WALK RANDOM
+                cur_pos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
 
                 // we are on target
                 if( cur_pos.x < this.Walk_Target.x+this.Walk_Target_Radius && cur_pos.x > this.Walk_Target.x-this.Walk_Target_Radius &&
@@ -72,7 +76,19 @@ cc.Class({
                     return;
                 }
 
-                let walk_vec = this.Walk_Target.sub(cur_pos);
+                walk_vec = this.Walk_Target.sub(cur_pos);
+                walk_vec.normalizeSelf();
+                walk_vec.mulSelf(this.Walk_Force);
+                this.Rigid_Body.applyForceToCenter(walk_vec,true);
+
+                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) );
+                
+            break;
+
+            case CITIZEN_STATE_LIST.Walk_Home: // WALK HOME
+                cur_pos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+
+                walk_vec = this.Walk_Target.sub(cur_pos);
                 walk_vec.normalizeSelf();
                 walk_vec.mulSelf(this.Walk_Force);
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
@@ -98,17 +114,25 @@ cc.Class({
                 this.Sensor.active=false;
             break;
 
-            case CITIZEN_STATE_LIST.Walk:
-                
+            case CITIZEN_STATE_LIST.Walk_Random:
                 if(!this.Walk_Target){ // if no target, set target
                     this.Set_Random_Walk_Target();
-                    
                 }
+                this.Sensor.active=false;
                 this.scheduleOnce(function(){
                     this.Sensor.active=true;
-                }.bind(this),1);
+                }.bind(this),this.Sensor_Off_Duration);
+                this.STATE = CITIZEN_STATE_LIST.Walk_Random;
+            break;
+
+            case CITIZEN_STATE_LIST.Walk_Home:
+                this.Set_Walk_Home_Target();
+                this.Sensor.active=false;
+                this.scheduleOnce(function(){
+                    this.Sensor.active=true;
+                }.bind(this),this.Sensor_Off_Duration);
                 
-                this.STATE = CITIZEN_STATE_LIST.Walk;
+                this.STATE = CITIZEN_STATE_LIST.Walk_Home;
             break;
 
         }
@@ -127,7 +151,7 @@ cc.Class({
             walk_vec.rotateSelf(Math.random() * Math.PI * 2);
             target_point = walk_vec.add(cur_pos);
 
-            let obstacle = this.Ray_Cast(cur_pos,target_point)[0];
+            let obstacle = this.Ray_Cast_Closest(cur_pos,target_point)[0];
             if(obstacle){
                 let distanceSqr = obstacle.point.sub(cur_pos).magSqr();
                 if(distanceSqr >= this.Min_Clear_Distance*this.Min_Clear_Distance){ // Area clear
@@ -142,14 +166,71 @@ cc.Class({
         this.Walk_Target = target_point;
 
         this.Target_Node && this.Target_Node.setPosition(this.Walk_Target);
-
-
-        
     },
 
-    Hit_Something(){
-        // cc.log("Hit_Something");
-        this.Change_State(CITIZEN_STATE_LIST.Idle);
+    Set_Walk_Home_Target(){
+
+        // Get home positions
+        let home_list = [];
+        let distance_list = [];
+        let obstacle_list = [];
+
+        smsg.util.Find_Nodes_With_Tag_In_Tree( smsg.Game_Layer, smsg.OBJECT_TAG_LIST.Home , home_list );
+
+        let self_pos = this.node.convertToWorldSpaceAR(cc.Vec2.ZERO);
+
+        // Check raycast from closest to furthest home node for obstacles
+        for(let i = 0 ; i < home_list.length ; i++ ){
+            let home_pos = home_list[i].convertToWorldSpaceAR(cc.Vec2.ZERO);
+            distance_list.push(self_pos.sub(home_pos).magSqr());
+            obstacle_list.push(this.Ray_Cast_All(self_pos,home_pos));
+
+            let tag_filter = smsg.util.Get_Bit_Key(smsg.OBJECT_TAG_LIST.Home) // Ignore these objects
+                           | smsg.util.Get_Bit_Key(smsg.OBJECT_TAG_LIST.Sensor) 
+                           | smsg.util.Get_Bit_Key(smsg.OBJECT_TAG_LIST.Citizen);
+
+            for(let o = 0 ; o < obstacle_list[i].length ; o++){
+                if( smsg.util.Test_Object_Tag( obstacle_list[i][o].collider.node.smsg_tag , tag_filter ) ){
+                    obstacle_list[i].splice(o,1);
+                    o--;
+                }
+            }
+
+        }
+
+        // Set target to closest home without static obstacles if possible
+        let combined_list = [];
+        for(let i = 0 ; i < home_list.length ; i++){
+            combined_list.push({ home: home_list[i] , distance: distance_list[i] , obstacle: obstacle_list[i] });
+        }
+
+        combined_list.sort(function (a, b) {
+            if(a.obstacle.length === 0 && b.obstacle.length > 0){
+                return -1;
+            }
+            if(a.obstacle.length > 0 && b.obstacle.length === 0){
+                return 1;
+            }
+            if (a.distance < b.distance) {
+                return -1;
+            }
+            if (a.distance < b.distance) {
+                return -1;
+            }
+            if (a.distance > b.distance) {
+                return 1;
+            }
+            return 0;
+        });
+
+        // Set walk target
+        let target_home = combined_list[0].home;
+        this.Walk_Target = target_home.convertToWorldSpaceAR(cc.Vec2.ZERO);
+
+        if(target_home.physics_trigger.Node_In_List(this.node)){
+            target_home.home_control.Citizen_Arrived(this.node,true);
+        }
+
     },
 
     Rotate_To(angle){
@@ -162,11 +243,45 @@ cc.Class({
             this.node.angle = angle;
         }
         
-
     },
 
-    Ray_Cast(p1,p2){
+    Ray_Cast_Closest(p1,p2){
         return cc.director.getPhysicsManager().rayCast(p1,p2,cc.RayCastType.Closest);
     },
+
+    Ray_Cast_All(p1,p2){
+        return cc.director.getPhysicsManager().rayCast(p1,p2,cc.RayCastType.AllClosest);
+    },
+
+    // PUBLIC METHODS
+
+    Hit_Something(node){
+        switch(this.STATE){
+
+            case CITIZEN_STATE_LIST.Walk_Home:
+
+            break;
+
+            default:
+                this.Change_State(CITIZEN_STATE_LIST.Idle);
+        }
+        
+    },
+
+    Go_Home(){
+        switch(this.STATE){
+
+            case CITIZEN_STATE_LIST.Walk_Home:
+
+            break;
+
+            default:
+                this.Change_State(CITIZEN_STATE_LIST.Walk_Home);
+        }
+        
+    },
+
+
+    
 
 });

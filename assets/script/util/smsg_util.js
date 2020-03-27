@@ -99,16 +99,29 @@ window.smsg.util = {
   },
   // Returns integer with bit key
   Get_Bit_Key: function Get_Bit_Key(bit) {
-    return Math.pow(2, bit);
+    return 1<<bit;//Math.pow(2, bit);
   },
   // Tests if object tag matches with the key
   Test_Object_Tag: function Test_Object_Tag(object_tag, key) {
     if (object_tag === undefined) {
-      // -1 is cocos default which means no tag defined
       return false;
     }
-
     return object_tag & key;
+  },
+  Object_Has_Tag: function Object_Has_Tag(node, tag) {
+    if (node.smsg_tag === undefined) {
+      return false;
+    }
+    return node.smsg_tag & (1<<tag);
+  },
+  Find_Nodes_With_Tag_In_Tree: function Find_Nodes_With_Tag_In_Tree(node,tag,out_nodes){
+    out_nodes = out_nodes || [];
+    if(this.Object_Has_Tag(node,tag)){ // self
+      out_nodes.push(node);
+    }
+    for(let i = 0, n = node.children.length ; i<n ; i++ ){ // children
+      this.Find_Nodes_With_Tag_In_Tree(node.children[i],tag,out_nodes);
+    }
   },
   // Finds the node just above Space_Ship_Container in current scene, we use it to spawn objects in
   Find_Game_Objects_Node: function Find_Game_Objects_Node() {
