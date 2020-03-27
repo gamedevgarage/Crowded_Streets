@@ -34,7 +34,7 @@ cc.Class({
             node.parent = null;
             smsg.Game_Control.Home_Citizen(node);
         }
-    },
+    }, 
 
     Spawn_Citizen(citizen_node){
 
