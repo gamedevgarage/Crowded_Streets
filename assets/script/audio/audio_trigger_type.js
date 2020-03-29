@@ -6,5 +6,6 @@ var AUDIO_TRIGGER_TYPE = cc.Enum({
     onHit:-1,
     Distance_Update:-1,
     start:-1,
+    None:-1,
 });
 module.exports = AUDIO_TRIGGER_TYPE;

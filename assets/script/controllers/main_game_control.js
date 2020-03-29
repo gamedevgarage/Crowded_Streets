@@ -16,9 +16,12 @@ cc.Class({
         smsg.Audio_Control = require("audio_control"); // initializes itself
         smsg.Game_Layer = cc.find("Game_Layer");
         smsg.OBJECT_TAG_LIST = require("object_tag_list");
+
     },
 
     onLoad(){
+
+        cc.screen.requestFullScreen();
 
         // Physics Settings
         this.physics_manager = cc.director.getPhysicsManager();

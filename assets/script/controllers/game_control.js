@@ -27,7 +27,7 @@ cc.Class({
         Spawn_Rate:{
             min:0,
             default:15,
-            tooltip:"per minute"
+            tooltip:"per minute",
         },
 
 
@@ -52,31 +52,39 @@ cc.Class({
         }
 
         this.Citizens_List = [];
-        this.Citizens_At_Home_List = [];
         for(let i = 0; i < this.Total_Citizens ; i++ ){
             let citizen = cc.instantiate(this.Citizen_Prefab);
             this.Citizens_List.push(citizen);
-            this.Citizens_At_Home_List.push(citizen);
         }
 
-        this.schedule( this.Spawn_Citizen , 60/this.Spawn_Rate );
+        this.Set_Spawn_Rate(this.Spawn_Rate);
     
     },
 
     Spawn_Citizen(){
         
-        if(this.Citizens_At_Home_List.length > 0){
+        if(this.Citizens_List.length > 0){
             let rnd_home = Math.floor(Math.random() * this.Home_List.length); // Spawn from random home
-            this.Home_List[rnd_home].home_control.Spawn_Citizen(this.Citizens_At_Home_List[0]);
-            this.Citizens_At_Home_List.splice(0,1);
+            this.Home_List[rnd_home].home_control.Spawn_Citizen(this.Citizens_List[0]);
+            this.Citizens_List.splice(0,1);
         }
 
     },
 
     Home_Citizen(node){
-        this.Citizens_At_Home_List.push(node);
+        this.Citizens_List.push(node);
     },
 
+    Set_Spawn_Rate(rate){
+
+        this.Spawn_Rate = rate;
+
+        this.unschedule(this.Spawn_Citizen);
+        if(rate > 0){
+            this.schedule( this.Spawn_Citizen , 60/rate );
+        }
+
+    },
 
  
 });

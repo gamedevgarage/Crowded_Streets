@@ -3,7 +3,10 @@
 
 var GLOBAL_VAR_NAME = cc.Enum({
     Test_Node:-1,
-    Joystick_Node:-1,
+    Joystick_Button:-1,
+    Whistle_Button:-1,
+    Warn_Button:-1,
+    Siren_Button:-1,
 });
 
 

@@ -1,19 +1,26 @@
+
+Keystore:
+File:C:\Cocos_Projects\StayAtHome\_files\keystore\StayAtHome.keystore
+Password: stayathome@159753
+Alias: stayathome_upload_2020_03_28
+Password: stayathomeupload@159753
+
+====================
 player_control:
-   - Warning button and action
-   - Siren button and action
+OK - Whistle action
+OK - Warn action
+OK - Siren action
 
 citizen_control:
 OK - Random walk
 OK - Return home
 OK - Enter home
 OK - Exit home
-   - Police/Citizen close actions
-   - Siren/Citizen actions
-   - Infection mechanics
-      - Sneeze
-	  - Infect in range
-	  - Get well at home
-   - Improve walking with pathfinding
+OK - Infection mechanics
+      OK - Sneeze
+	  OK - Infect in range
+	  ?? - Get well at home
+?? - Improve walking with pathfinding
 
 home_control:
 OK - Spawn Citizen
@@ -24,5 +31,12 @@ indicator_control:
    - Healed: 5
    - Home:40
    - Street:10
+   - Cooldown indicators (Whistle, Warn, Siren)
+   
+game_control:
+   - Day Pass
+   - Next Level
+   
 
-
+   
+   

@@ -23,18 +23,6 @@ var DISTANCE_REF = cc.Enum({
 
 var AUDIO_LAYERS = require("audio_layers");
 
-
-/* if(CC_EDITOR){    
-    var LIST = cc.find(smsg.Global_Settings.SFX_List); // Get node list
-    if(LIST){
-        LIST = LIST.children;
-        for (var i = 0; i < LIST.length; i++) {
-            AUDIO_PRESET[LIST[i].name] = i+2;
-        }
-    }
-
-} */
-
 cc.Class({
     extends: cc.Component,
 
@@ -45,7 +33,7 @@ cc.Class({
     properties: {
 
         Comp_Event:{
-            default:1, // 1:onEnable, 0:onDisable
+            default:1,
             type:COMP_EVENT
         },
 
@@ -105,7 +93,7 @@ cc.Class({
             default:1,
             range:[0,1],
             visible () {
-                return ( this.Comp_Event == COMP_EVENT.start || this.Comp_Event == COMP_EVENT.onEnable || this.Comp_Event == COMP_EVENT.onDisable || this.Comp_Event == COMP_EVENT.onBeginContact || this.Comp_Event == COMP_EVENT.Distance_Update );
+                return ( this.Comp_Event == COMP_EVENT.None || this.Comp_Event == COMP_EVENT.start || this.Comp_Event == COMP_EVENT.onEnable || this.Comp_Event == COMP_EVENT.onDisable || this.Comp_Event == COMP_EVENT.onBeginContact || this.Comp_Event == COMP_EVENT.Distance_Update );
             }
         },
 
@@ -174,6 +162,10 @@ cc.Class({
 
     },
 
+    __preload(){
+        this.node.audio_action = this;
+    },
+
     onLoad(){
 
         // Defaults
@@ -181,9 +173,6 @@ cc.Class({
         this.Volume_Max = 0.9;
         this.Volume_Min = 0.2;
         this.Update_Rate = 5;
-
-        // Space Ship
-        this.Space_Ship_Container = cc.find(smsg.Global_Settings.Space_Ship_Container);
 
         // Audio Presets
         // Set this.Audio_Source based on this.Audio_Preset
@@ -205,7 +194,7 @@ cc.Class({
             this.Audio_Source = new Array(); // reset array
 
 
-            var SFX_List = cc.find(smsg.Global_Settings.SFX_List+"/"+this.Audio_Preset_Name); // Get preset node
+            var SFX_List = cc.find(smsg.Scene_Nodes.Audio_Sources+"/"+this.Audio_Preset_Name); // Get preset node
 
             if(SFX_List){ // if node exists
 
@@ -222,7 +211,7 @@ cc.Class({
                 }
 
             }else{ // if node doesn't exist
-                cc.warn("audio_action: Preset node doesn't exists: " + smsg.Global_Settings.SFX_List+"/"+this.Audio_Preset_Name);
+                cc.warn("audio_action: Preset node doesn't exists: " + smsg.Scene_Nodes.Audio_Sources+"/"+this.Audio_Preset_Name);
             }
 
             
@@ -234,7 +223,7 @@ cc.Class({
         // Check audio sources
         if(!this.Audio_Source.length){
             cc.warn("audio_action: Audio Source is not set!: "+ this.node.name);
-            this.Do_Audio_Action = function(){};
+            this.Trigger_Audio_Action = function(){};
         }
 
         // check rigid body
@@ -256,10 +245,10 @@ cc.Class({
 
 
         // Camera position
-        this.Camera_Container = cc.find(smsg.Global_Settings.Camera_Container);
-        this.Dist_Vec = cc.v2();
-        this.Ref_Pos = cc.v2();
-        this.Max_Distance_Sqr = this.Max_Distance*this.Max_Distance;
+        // this.Camera_Container = cc.find(smsg.Global_Settings.Camera_Container);
+        // this.Dist_Vec = cc.v2();
+        // this.Ref_Pos = cc.v2();
+        // this.Max_Distance_Sqr = this.Max_Distance*this.Max_Distance;
 
         // Optimization
         this.Audio_Source_Count = this.Audio_Source.length;
@@ -268,31 +257,29 @@ cc.Class({
         this.Zero_Vec = cc.v2();
 
         // Distance Reference
-        this.Distance_Ref_Node = this.Camera_Container;
-        if(this.Distance_Reference == DISTANCE_REF.Spaceship){
-            this.Distance_Ref_Node = this.Space_Ship_Container;
-        }
+        // this.Distance_Ref_Node = this.Camera_Container;
+    
 
         // Distance Update Function
-        this.Distance_Update_Function = function(){
+        // this.Distance_Update_Function = function(){
 
-            let World_Pos = this.node.convertToWorldSpaceAR(this.Zero_Vec);
+        //     let World_Pos = this.node.convertToWorldSpaceAR(this.Zero_Vec);
 
-            this.Dist_Vec.x = World_Pos.x; this.Dist_Vec.y = World_Pos.y;
+        //     this.Dist_Vec.x = World_Pos.x; this.Dist_Vec.y = World_Pos.y;
             
-            this.Ref_Pos.x = this.Distance_Ref_Node.x;
-            this.Ref_Pos.y = this.Distance_Ref_Node.y;
+        //     this.Ref_Pos.x = this.Distance_Ref_Node.x;
+        //     this.Ref_Pos.y = this.Distance_Ref_Node.y;
             
             
-            this.Dist_Vec.subSelf(this.Ref_Pos);
-            let vol_mult = (1-cc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
+        //     this.Dist_Vec.subSelf(this.Ref_Pos);
+        //     let vol_mult = (1-cc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
 
-            for(let i = 0 , n = this.Audio_Source_Count ; i < n ; i++){
-                smsg.Audio_Control.Set_AudioSource_Volume( this.Audio_Source[i] , this.Volume*vol_mult );
-                //this.Audio_Source[i].volume = this.Volume*vol_mult;
-            }
+        //     for(let i = 0 , n = this.Audio_Source_Count ; i < n ; i++){
+        //         smsg.Audio_Control.Set_AudioSource_Volume( this.Audio_Source[i] , this.Volume*vol_mult );
+        //         //this.Audio_Source[i].volume = this.Volume*vol_mult;
+        //     }
 
-        };
+        // };
 
 
 
@@ -319,7 +306,7 @@ cc.Class({
 
     },
 
-    Do_Audio_Action(impulse=null){ // Audio action, impulse provided onPostSolve to adjust volume of sfx
+    Trigger_Audio_Action(impulse=null){ // Audio action, impulse provided onPostSolve to adjust volume of sfx
 
         switch(this.Action){
 
@@ -338,7 +325,7 @@ cc.Class({
                     play_volume = this.Volume;
                 }
                 let vol_mult = 1;
-                if(this.Max_Distance){ // calculate sfx volume based on max distance
+                /* if(this.Max_Distance){ // calculate sfx volume based on max distance
                     this.Dist_Vec = this.node.convertToWorldSpaceAR(this.Zero_Vec); // USE WORLD POSITION!
                     this.Ref_Pos.x = this.Distance_Ref_Node.x;
                     this.Ref_Pos.y = this.Distance_Ref_Node.y; 
@@ -346,7 +333,7 @@ cc.Class({
                     this.Dist_Vec.subSelf(this.Ref_Pos);
                     vol_mult = (1-cc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
                     play_volume *= vol_mult;
-                }
+                } */
                 if(vol_mult){ // play if volume is not zero
                     //this.Audio_Source[random_index].volume = play_volume;
                     smsg.Audio_Control.Play_AudioSource(this.Audio_Source[random_index], play_volume , this.Audio_Layer );
@@ -417,7 +404,7 @@ cc.Class({
 
         if(this.Comp_Event === COMP_EVENT.start){
            
-            this.Do_Audio_Action();
+            this.Trigger_Audio_Action();
 
         }
 
@@ -429,14 +416,14 @@ cc.Class({
 
         if(this.Comp_Event === COMP_EVENT.onEnable){ // if onDisable selected
 
-            this.Do_Audio_Action();
+            this.Trigger_Audio_Action();
 
-        }else if(this.Comp_Event === COMP_EVENT.Distance_Update){ // if Distance_Update selected
+        }/* else if(this.Comp_Event === COMP_EVENT.Distance_Update){ // if Distance_Update selected
 
             this.Distance_Update_Function();
             this.schedule(this.Distance_Update_Function,1/this.Update_Rate);
 
-        }
+        } */
 
     },
 
@@ -444,13 +431,13 @@ cc.Class({
 
         if(this.Comp_Event === COMP_EVENT.onDisable){ // if onDisable selected
 
-            this.Do_Audio_Action();
+            this.Trigger_Audio_Action();
 
-        }else if(this.Comp_Event === COMP_EVENT.Distance_Update){ // if Distance_Update selected
+        }/* else if(this.Comp_Event === COMP_EVENT.Distance_Update){ // if Distance_Update selected
 
             this.unschedule(this.Distance_Update_Function);
 
-        }
+        } */
 
     },
 
@@ -459,7 +446,7 @@ cc.Class({
         
         if(this.Comp_Event === COMP_EVENT.onBeginContact){ // if onBeginContact selected
             
-            this.Do_Audio_Action();
+            this.Trigger_Audio_Action();
         
         }
   
@@ -487,7 +474,7 @@ cc.Class({
         let impulse = contact.getImpulse().normalImpulses;
         
         if( impulse > this.Impulse_Min){ // minimum sfx limit
-            this.Do_Audio_Action(impulse);
+            this.Trigger_Audio_Action(impulse);
         }
         
     },

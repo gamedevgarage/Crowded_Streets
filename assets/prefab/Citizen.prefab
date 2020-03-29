@@ -19,25 +19,31 @@
     "_children": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 13
+      },
+      {
+        "__id__": 23
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 26
       },
       {
         "__id__": 6
       },
       {
-        "__id__": 14
+        "__id__": 27
       },
       {
-        "__id__": 15
+        "__id__": 28
       }
     ],
     "_prefab": {
-      "__id__": 16
+      "__id__": 29
     },
     "_opacity": 255,
     "_color": {
@@ -61,8 +67,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        678.337,
-        101.917,
+        614.457,
+        239.614,
         0,
         0,
         0,
@@ -377,9 +383,384 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "4bc5afdf-6741-4fb0-ad19-855d8098e0e3"
     },
     "fileId": "32eATmHV1Ft782efyosw2N",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "Sneeze_Range",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": false,
+    "_components": [
+      {
+        "__id__": 14
+      },
+      {
+        "__id__": 15
+      },
+      {
+        "__id__": 16
+      },
+      {
+        "__id__": 17
+      },
+      {
+        "__id__": 21
+      }
+    ],
+    "_prefab": {
+      "__id__": 22
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        55,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 4,
+    "groupIndex": 4,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.RigidBody",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "_type": 2,
+    "_allowSleep": true,
+    "_gravityScale": 1,
+    "_linearDamping": 0,
+    "_angularDamping": 0,
+    "_linearVelocity": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_angularVelocity": 0,
+    "_fixedRotation": false,
+    "enabledContactListener": true,
+    "bullet": false,
+    "awakeOnLoad": true,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PhysicsCircleCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_density": 0.01,
+    "_sensor": true,
+    "_friction": 0.2,
+    "_restitution": 0,
+    "body": null,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_radius": 75,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.WeldJoint",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "anchor": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "connectedAnchor": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 55
+    },
+    "connectedBody": {
+      "__id__": 6
+    },
+    "collideConnected": false,
+    "referenceAngle": 0,
+    "_frequency": 0,
+    "_dampingRatio": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "62b74ac2stAp7heNvukuuKP",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "Include_Objects": [],
+    "Exclude_Objects": [],
+    "Include_Tags": [
+      2
+    ],
+    "Exclude_Tags": [],
+    "Triggers": [
+      {
+        "__id__": 18
+      }
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "TRIGGER",
+    "Trigger_Type": 0,
+    "Hit_Treshold": 25,
+    "Actions": [
+      {
+        "__id__": 19
+      }
+    ]
+  },
+  {
+    "__type__": "STANDARD_ACTION",
+    "Trigger_Once": false,
+    "Delay_Time": 0,
+    "Trigger_Count": 0,
+    "Action_Type": 4,
+    "Action_Node": null,
+    "Fade_Node": false,
+    "Fade_Node_Duration": 0.5,
+    "Event_Handler": {
+      "__id__": 20
+    },
+    "Include_Tags": [],
+    "Check_Objects_For": 0,
+    "Object_Count": 1,
+    "Remove_Objects_Count": 0,
+    "Input_Port_Name": "",
+    "Logic_Data": 1,
+    "Animation_Mode": 0,
+    "Animation_Clip_Name": "",
+    "Cam_Shake_Type": 4,
+    "Cam_Shake_Play_Type": 0,
+    "Cam_Shake_Distance": 500,
+    "Distance_Reference": 0,
+    "Target_Object": null,
+    "Follow_Angle": false,
+    "Follow_Zoom": false,
+    "Smooth_Motion": true,
+    "Scene_Name": "",
+    "Analytics_Event_Type": 3,
+    "Analytics_Event_Detail": "",
+    "Fade_Screen_Duration": 2,
+    "Indicator_Target": null,
+    "Message_Text": "",
+    "Message_Color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "Message_Duration": 5,
+    "Audio_Source_Comp": 1,
+    "Audio_Source": null,
+    "Audio_Action_Type": 0,
+    "Audio_Layer": 0,
+    "Audio_Volume": 0.7,
+    "Audio_Fade_Duration": 1,
+    "Cinematic_Prefab": null,
+    "Level_Completed_Event": true,
+    "Remove_Objects_List": [],
+    "_N$Physics_Trigger": null,
+    "_N$Target_Logic_Trigger": null,
+    "_N$Input_Port": 0,
+    "_N$Animation": null,
+    "_N$Animation_Clip": 6,
+    "_N$i18n_Key": ""
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "",
+    "_componentId": "e0965aDtDJI1rRq1c2IOaay",
+    "handler": "Infect_With_Sneeze",
+    "customEventData": ""
+  },
+  {
+    "__type__": "bb3e7QSGalLBIh4hiTw//4h",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "Object_Tags": [
+      4
+    ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "4bc5afdf-6741-4fb0-ad19-855d8098e0e3"
+    },
+    "fileId": "855nmVfU9AjoibIfpABOYf",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "Sneeze_SFX",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 24
+      }
+    ],
+    "_prefab": {
+      "__id__": 25
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "9317cq3XvlO6bD8QtAy09RF",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 23
+    },
+    "_enabled": true,
+    "Comp_Event": 6,
+    "Impulse_Min": 100,
+    "Impulse_Max": 400,
+    "Volume_Min": 0.2,
+    "Volume_Max": 0.4,
+    "Wait_Frames": 15,
+    "Max_Distance": 0,
+    "Distance_Reference": 0,
+    "Volume": 1,
+    "Update_Rate": 5,
+    "Audio_Preset_Name": "SFX_Sneeze",
+    "Audio_Source": [],
+    "Action": 0,
+    "Fade_Time": 5,
+    "Play_Once": false,
+    "Audio_Layer": 0,
+    "_N$Audio_Preset": 2,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "4bc5afdf-6741-4fb0-ad19-855d8098e0e3"
+    },
+    "fileId": "119s/KRONCDJXo9viqYv9m",
     "sync": false
   },
   {
@@ -448,6 +829,12 @@
       "__id__": 2
     },
     "Infected": false,
+    "Sneeze_Range": {
+      "__id__": 13
+    },
+    "Sneeze_SFX_Control": {
+      "__id__": 24
+    },
     "_id": ""
   },
   {
@@ -456,7 +843,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "4bc5afdf-6741-4fb0-ad19-855d8098e0e3"
     },
     "fileId": "26/dYmprdPZrnmUarIQRpH",
     "sync": false

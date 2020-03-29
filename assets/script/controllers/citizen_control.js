@@ -6,6 +6,10 @@ var CITIZEN_STATE_LIST = cc.Enum({
     Walk_Home:-1,
 });
 
+
+// Audio_Presets
+var AUDIO_PRESET_LIST = require("audio_preset_list");
+
 cc.Class({
     extends: cc.Component,
 
@@ -17,6 +21,10 @@ cc.Class({
             default:false,
             tooltip:"Infection status",
         },
+
+        Sneeze_Range:cc.Node,
+
+        Sneeze_SFX_Control:require("audio_action"),
 
     },
 
@@ -40,14 +48,23 @@ cc.Class({
 
         this.Walk_Target = null;
         this.Walk_Target_Radius = 50;
-        this.Walk_Force = 5000;
+        this.Walk_Force = 3000;
+        this.Rotation_Speed = 2.5;
 
-        this.Rotation_Speed = 5;
+        this.Walk_Home_Force = 5000;
+        this.Walk_Home_Rotation_Speed = 4;
+
         this.Target_Distance = 400;
         this.Min_Clear_Distance = 200; // Checks if this much area is clear when setting target.
 
         this.Sensor_Off_Duration = 1;
 
+        this.Sneeze_Rate = 10; // per minute
+        this.Sneeze_Rate_Randomize = 0.2;
+
+        if(this.Infected){
+            this.Set_Infected(true,true);
+        }
 
     },
 
@@ -81,7 +98,7 @@ cc.Class({
                 walk_vec.mulSelf(this.Walk_Force);
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
-                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) );
+                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Rotation_Speed);
                 
             break;
 
@@ -90,10 +107,10 @@ cc.Class({
 
                 walk_vec = this.Walk_Target.sub(cur_pos);
                 walk_vec.normalizeSelf();
-                walk_vec.mulSelf(this.Walk_Force);
+                walk_vec.mulSelf(this.Walk_Home_Force);
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
-                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) );
+                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Walk_Home_Rotation_Speed);
                 
             break;
 
@@ -233,12 +250,12 @@ cc.Class({
 
     },
 
-    Rotate_To(angle){
+    Rotate_To(angle,speed){
 
-        if(angle - this.node.angle > this.Rotation_Speed){
-            this.node.angle += this.Rotation_Speed;
-        }else if(angle - this.node.angle < -this.Rotation_Speed){
-            this.node.angle -= this.Rotation_Speed;
+        if(angle - this.node.angle > speed){
+            this.node.angle += speed;
+        }else if(angle - this.node.angle < -speed){
+            this.node.angle -= speed;
         }else{
             this.node.angle = angle;
         }
@@ -253,7 +270,21 @@ cc.Class({
         return cc.director.getPhysicsManager().rayCast(p1,p2,cc.RayCastType.AllClosest);
     },
 
-    // PUBLIC METHODS
+    // Activates sneeze range sensor to infect people inside
+    Sneeze(){
+        this.Sneeze_Range.active = true;
+        this.Play_Sneeze_SFX();
+        this.scheduleOnce(function(){
+            this.Sneeze_Range.active = false;
+        }.bind(this),0.25);
+    },
+
+    Play_Sneeze_SFX(){
+        this.Sneeze_SFX_Control.Trigger_Audio_Action();
+    },
+
+
+    // PUBLIC METHODS =========================================================
 
     Hit_Something(node){
         switch(this.STATE){
@@ -279,6 +310,29 @@ cc.Class({
                 this.Change_State(CITIZEN_STATE_LIST.Walk_Home);
         }
         
+    },
+
+    Set_Infected(status,force = false){
+        if(status){ // Infect
+            if(force || !this.Infected){
+                this.Infected = true;
+                if(this.Sneeze_Rate>0){
+                    let rate_randomized = this.Sneeze_Rate+(this.Sneeze_Rate*this.Sneeze_Rate_Randomize* Math.random())-(this.Sneeze_Rate*this.Sneeze_Rate_Randomize/ 2);
+                    this.schedule(this.Sneeze,60/ (rate_randomized));
+                }
+                this.node.color = new cc.Color(255, 25, 25);
+            }
+        }else{ // Heal
+            if(this.Infected){
+                this.Infected = false;
+                this.unschedule(this.Sneeze);
+                this.node.color = new cc.Color(255, 255, 255);
+            }
+        }
+    },
+
+    Infect_With_Sneeze(node){ // Called by sensor physics trigger
+        node.citizen_control && node.citizen_control.Set_Infected(true);
     },
 
 
