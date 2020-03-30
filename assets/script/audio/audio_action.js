@@ -272,7 +272,7 @@ cc.Class({
             
             
         //     this.Dist_Vec.subSelf(this.Ref_Pos);
-        //     let vol_mult = (1-cc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
+        //     let vol_mult = (1-cc.misc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
 
         //     for(let i = 0 , n = this.Audio_Source_Count ; i < n ; i++){
         //         smsg.Audio_Control.Set_AudioSource_Volume( this.Audio_Source[i] , this.Volume*vol_mult );
@@ -331,7 +331,7 @@ cc.Class({
                     this.Ref_Pos.y = this.Distance_Ref_Node.y; 
 
                     this.Dist_Vec.subSelf(this.Ref_Pos);
-                    vol_mult = (1-cc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
+                    vol_mult = (1-cc.misc.clamp01(this.Dist_Vec.magSqr()/this.Max_Distance_Sqr));
                     play_volume *= vol_mult;
                 } */
                 if(vol_mult){ // play if volume is not zero

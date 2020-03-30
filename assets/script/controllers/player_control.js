@@ -29,24 +29,21 @@ cc.Class({
 
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
 
-        // Actions
+        // Whistle
+        this.Whistle_Enabled = true; // for cooldown
         this.Whistle_Duration = 0.5;
         this.Whistle_Cooldown = 0.5;
-        this.Whistle_Countdown = 0;
-        this.Whistle_Durability = 100;
 
+        // Warn
         this.Warn_Battery = 100;
-        this.Warn_Battery_Drain = 10;
-        this.update_warn_battery = 0; // (-) when using , (+) when charging
+        this.Warn_Battery_Consume_Rate = 10;
         this.Warn_Recharging = false;
         this.Warn_Battery_Recharge_Speed = 12;
-        this.Warn_Durability = 100;
 
-        // Actions
+        // Siren
+        this.Siren_Enabled = true; // for cooldown
         this.Siren_Duration = 5;
         this.Siren_Cooldown = 30;
-        this.Siren_Countdown = 0;
-        this.Siren_Durability = 100;
 
 
         // add listeners
@@ -65,106 +62,116 @@ cc.Class({
         
     },
 
+    Void_Func(){},
+
     Joystick_Touch_On(joystick_vector){
-        this.Walk_Vector = joystick_vector.mul(100);
+        this.Walk_Vector = joystick_vector.mul(120);
         this.Walk_Angle = -cc.misc.radiansToDegrees(this.Walk_Vector.signAngle(cc.Vec2.UP));
     },
-
     Joystick_Touch_Off(){
         this.Walk_Vector = cc.v2();
     },
 
+    // WHISTLE
     Whistle_Touch_Start(){
-        if(this.Whistle_Countdown < 0 && this.Whistle_Durability > 0){
-            this.Whistle_Countdown = this.Whistle_Cooldown;
+        this.Start_Whistle();
+    },
+    Start_Whistle(){
+        if(this.Whistle_Enabled){
+            this.Whistle_Enabled = false;
             this.Whistle_Range.active=true;
             this.Whistle_SFX.Trigger_Audio_Action();
             this.scheduleOnce(this.Stop_Whistle,this.Whistle_Duration);
-            // this.Whistle_Durability -= 2;
+            this.scheduleOnce(this.Enable_Whistle,this.Whistle_Cooldown);
+            smsg.Whistle_Cooldown_Indicator.sprite_effect.Start_Wipe_Animation(this.Whistle_Cooldown,0,-1);
         }
     },
     Stop_Whistle(){       
         this.Whistle_Range.active=false;
     },
+    Enable_Whistle(){
+        this.Whistle_Enabled = true;
+    },
     // Whistle_Touch_End(){
     //     this.Whistle_Range.active=false;
     // },
 
+    // WARN
+    Warn_Update_Battery(){}, // called in update()
     Warn_Touch_Start(){
-
-        if( !this.Warn_Recharging && this.Warn_Battery > 0 && this.Warn_Durability > 0){
+        if( !this.Warn_Recharging && this.Warn_Battery > 0 ){
             this.Warn_Range.active=true;
             this.Warn_SFX.node.active = true;
-            this.Warn_Active = true;
-            this.update_warn_battery = -this.Warn_Battery_Drain;
-            this.Warn_Update_Battery(-this.Warn_Battery_Drain/2);
+            this.Warn_Start_Consume_Battery();
         }
-
     },
-    Warn_Update_Battery(amount){
-        this.Warn_Battery += amount;
-        if(!this.Warn_Recharging && this.Warn_Battery < 0){
+    Warn_Start_Consume_Battery(){
+        this.Warn_Update_Battery = this.Warn_Consume_Battery_Func;
+    },
+    Warn_Stop_Consume_Battery(){
+        this.Warn_Update_Battery = this.Void_Func;
+    },
+    Warn_Consume_Battery_Func(dt){
+        this.Warn_Battery -= this.Warn_Battery_Consume_Rate*dt;
+        smsg.Warn_Battery_Indicator.sprite_effect.Set_Wipe(-this.Warn_Battery/100);
+        if(this.Warn_Battery < 0){
             this.Warn_Touch_End();
-        }else if(this.Warn_Recharging && this.Warn_Battery > 100 ){
-            this.Warn_Stop_Recharge();
+            this.Warn_Start_Recharge();
         }
-        // cc.log("Battery: " +this.Warn_Battery);
     },  
-    Warn_Touch_End(){
-
-        this.Warn_Range.active=false;
-        this.Warn_SFX.node.active = false;
-
-        if(!this.Warn_Recharging){
-            this.update_warn_battery = 0;
-            if(this.Warn_Battery < 0){
-                this.Warn_Start_Recharge();
-            }
-        }
-    },
-
     Warn_Start_Recharge(){
         this.Warn_Recharging = true;
-        this.update_warn_battery = this.Warn_Battery_Recharge_Speed;
+        this.Warn_Update_Battery = this.Warn_Recharge_Battery_Func;
     },
-
     Warn_Stop_Recharge(){
         this.Warn_Recharging = false;
-        this.update_warn_battery = 0;
+        this.Warn_Update_Battery = this.Void_Func;
+    },
+    Warn_Recharge_Battery_Func(dt){
+        this.Warn_Battery += this.Warn_Battery_Recharge_Speed*dt;
+        smsg.Warn_Battery_Indicator.sprite_effect.Set_Wipe(-this.Warn_Battery/100);
+        if(this.Warn_Battery > 100){
+            this.Warn_Stop_Recharge();
+        }
+    },  
+    Warn_Touch_End(){
+        this.Warn_Range.active=false;
+        this.Warn_SFX.node.active = false;
+        if(!this.Warn_Recharging){
+            this.Warn_Stop_Consume_Battery();
+        }
     },
 
+    // SIREN
     Siren_Touch_Start(){
-        if(this.Siren_Countdown < 0 && this.Siren_Durability > 0){
-            this.Siren_Countdown = this.Siren_Cooldown;
+        if(this.Siren_Enabled){
+            this.Siren_Enabled = false;
             this.Siren_Range.active=true;
             this.Siren_SFX.node.active = true;
             this.scheduleOnce(this.Stop_Siren,this.Siren_Duration);
-            // this.Siren_Durability -= 2;
+            this.scheduleOnce(this.Enable_Siren,this.Siren_Cooldown);
+            smsg.Siren_Cooldown_Indicator.sprite_effect.Start_Wipe_Animation(this.Siren_Cooldown,0,-1);
         }
     },
-    
     Stop_Siren(){       
         this.Siren_Range.active=false;
         this.Siren_SFX.node.active = false;
     },
-
+    Enable_Siren(){
+        this.Siren_Enabled = true;
+    },
     // Siren_Touch_End(){
     //     this.Siren_Range.active=false;
     // },
+    
 
     update (dt) {
 
         this.node.angle = this.Walk_Angle;//cc.misc.lerp(this.node.angle,this.Walk_Angle,0.3);;
         this.Rigid_Body.applyForceToCenter(this.Walk_Vector,true);
 
-        // Whistle
-        this.Whistle_Countdown-=dt;
-
         // Warn
-        this.Warn_Update_Battery(this.update_warn_battery*dt);
-
-        // Siren
-        this.Siren_Countdown-=dt;
+        this.Warn_Update_Battery(dt);
 
     },
 

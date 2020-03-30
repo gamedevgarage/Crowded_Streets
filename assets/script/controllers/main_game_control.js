@@ -21,8 +21,6 @@ cc.Class({
 
     onLoad(){
 
-        cc.screen.requestFullScreen();
-
         // Physics Settings
         this.physics_manager = cc.director.getPhysicsManager();
         this.physics_manager.enabled = true; // physics collision manager
@@ -37,6 +35,10 @@ cc.Class({
             Bits.e_jointBit |
             Bits.e_shapeBit;
         }
-    }
+    },
+
+    Request_Fullscreen(){
+        cc.screen.requestFullScreen();
+    },
  
 });

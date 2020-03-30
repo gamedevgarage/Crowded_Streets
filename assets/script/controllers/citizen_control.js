@@ -312,15 +312,19 @@ cc.Class({
         
     },
 
-    Set_Infected(status,force = false){
+    Set_Infected(status,internal = false){
         if(status){ // Infect
-            if(force || !this.Infected){
+            if(internal || !this.Infected){
                 this.Infected = true;
                 if(this.Sneeze_Rate>0){
                     let rate_randomized = this.Sneeze_Rate+(this.Sneeze_Rate*this.Sneeze_Rate_Randomize* Math.random())-(this.Sneeze_Rate*this.Sneeze_Rate_Randomize/ 2);
                     this.schedule(this.Sneeze,60/ (rate_randomized));
                 }
                 this.node.color = new cc.Color(255, 25, 25);
+
+                if(!internal){
+                    smsg.Game_Control.Increase_Infected_Count(1);
+                }
             }
         }else{ // Heal
             if(this.Infected){

@@ -7,12 +7,19 @@ var GLOBAL_VAR_NAME = cc.Enum({
     Whistle_Button:-1,
     Warn_Button:-1,
     Siren_Button:-1,
+    Whistle_Cooldown_Indicator:-1,
+    Warn_Battery_Indicator:-1,
+    Siren_Cooldown_Indicator:-1,
+    Infected_Indicator:-1,
+    Street_Indicator:-1,
 });
 
 
 cc.Class({
     extends: cc.Component,
-
+    editor: CC_EDITOR && {
+        menu: 'SMSG/Util/globalize_node',
+    },
     properties: {
         Variable_Name:{
             default:0,

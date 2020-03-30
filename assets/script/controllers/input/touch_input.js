@@ -38,8 +38,8 @@ cc.Class({
         }
 
         // Joystick
-        this.Dead_Zone = 30;
-        this.Joystick_Min = 100;
+        this.Dead_Zone = 20;
+        this.Joystick_Min = 50;
         this.Joystick_Max = 100;
         this.Joystick_Down = false;
         this.Joystick_Vector = cc.v2();
