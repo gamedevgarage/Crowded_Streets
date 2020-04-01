@@ -1,8 +1,14 @@
+
+
+
+
+==================
+
 Notes:
-   - Set spawn rate 0 during Siren
-
+?? - Set spawn rate 0 during Siren
+   - Disable input buttons on end screen
+   - Max Citizens_Count/Spawn_Rate/Day_Duration fix to let everybosy go out one time
    
-
 ===================
 
 Keystore:
@@ -27,29 +33,34 @@ OK - Infection mechanics
 	  OK - Infect in range
 	  ?? - Get well at home
 ?? - Improve walking with pathfinding
+** - Sneeze rate increase (may be set by game_control)
 
 home_control:
 OK - Spawn Citizen
 OK - Home Citizen
-   
+
 indicator_control:
-OK - Infected: 12/50
-OK - Home:40
-OK - Street:10
+OK - Infected
+OK - Home
+OK - Street
 OK - Cooldown indicators (Whistle, Warn, Siren)
-** - Day: 3
+OK - Day
+OK - Gold
+   
+game_control:
+OK - Day Pass
+OK - Day End Screen, statics
+OK - Start Next Day
+OK - Earn gold on each citizen enter home
+** - Game Over Screen, statics
+
+   
+main_game_control:
+   - Home Screen
+   - Load/Start Level
+
    
 camera_control:
    - Follow Object
-   
-game_control:
-   - Earn gold on each citizen enter home
-   - Day Pass
-   - Next Level
-   - Get data from previous level
-   
-   
- 
-
    
    

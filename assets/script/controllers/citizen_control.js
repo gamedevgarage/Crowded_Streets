@@ -22,6 +22,12 @@ cc.Class({
             tooltip:"Infection status",
         },
 
+        Sneeze_Rate:{
+            default:10,
+            min:1,
+            tooltip:"Per minute",
+        },
+
         Sneeze_Range:cc.Node,
 
         Sneeze_SFX_Control:require("audio_action"),
@@ -59,8 +65,7 @@ cc.Class({
 
         this.Sensor_Off_Duration = 1;
 
-        this.Sneeze_Rate = 10; // per minute
-        this.Sneeze_Rate_Randomize = 0.2;
+        this.Sneeze_Rate_Randomize = 0.3;
 
         if(this.Infected){
             this.Set_Infected(true,true);
@@ -318,12 +323,12 @@ cc.Class({
                 this.Infected = true;
                 if(this.Sneeze_Rate>0){
                     let rate_randomized = this.Sneeze_Rate+(this.Sneeze_Rate*this.Sneeze_Rate_Randomize* Math.random())-(this.Sneeze_Rate*this.Sneeze_Rate_Randomize/ 2);
-                    this.schedule(this.Sneeze,60/ (rate_randomized));
+                    this.schedule(this.Sneeze,60/(rate_randomized));
                 }
                 this.node.color = new cc.Color(255, 25, 25);
 
                 if(!internal){
-                    smsg.Game_Control.Increase_Infected_Count(1);
+                    smsg.Game_Control.Citizen_Infected(1);
                 }
             }
         }else{ // Heal

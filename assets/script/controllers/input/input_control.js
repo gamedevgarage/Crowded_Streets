@@ -110,6 +110,7 @@ cc.Class({
     // Global Enable
     Enable_Input(){
         this.Input_Enabled = true;
+        smsg.Input_Control_Buttons.active = true;
     },
 
     // Global Disable
@@ -120,6 +121,7 @@ cc.Class({
         for(let i = 0 ; i < Object.keys(INPUT_CHANNEL_LIST).length ; i++){
             this.Joystick_Touch_End(INPUT_CHANNEL_LIST[i]);
         }
+        smsg.Input_Control_Buttons.active = false;
         this.Input_Enabled = false;
     },
 

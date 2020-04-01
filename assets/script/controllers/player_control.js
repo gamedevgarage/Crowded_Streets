@@ -26,6 +26,7 @@ cc.Class({
 
         this.Walk_Vector = cc.v2();
         this.Walk_Angle = 0;
+        this.Walk_Speed = 100;
 
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
 
@@ -59,13 +60,15 @@ cc.Class({
 
         smsg.Input_Control.node.on("siren_touch_start",this.Siren_Touch_Start,this);
         // smsg.Input_Control.node.on("siren_touch_end",this.Siren_Touch_End,this);
+
+        smsg.Game_Control.node.on("end_day",this.Reset_Cooldowns,this);
         
     },
 
     Void_Func(){},
 
     Joystick_Touch_On(joystick_vector){
-        this.Walk_Vector = joystick_vector.mul(120);
+        this.Walk_Vector = joystick_vector.mul(this.Walk_Speed);
         this.Walk_Angle = -cc.misc.radiansToDegrees(this.Walk_Vector.signAngle(cc.Vec2.UP));
     },
     Joystick_Touch_Off(){
@@ -102,6 +105,7 @@ cc.Class({
         if( !this.Warn_Recharging && this.Warn_Battery > 0 ){
             this.Warn_Range.active=true;
             this.Warn_SFX.node.active = true;
+            this.Warn_Battery -= this.Warn_Battery_Consume_Rate/4;
             this.Warn_Start_Consume_Battery();
         }
     },
@@ -131,6 +135,7 @@ cc.Class({
         this.Warn_Battery += this.Warn_Battery_Recharge_Speed*dt;
         smsg.Warn_Battery_Indicator.sprite_effect.Set_Wipe(-this.Warn_Battery/100);
         if(this.Warn_Battery > 100){
+            this.Warn_Battery = 100;
             this.Warn_Stop_Recharge();
         }
     },  
@@ -177,6 +182,21 @@ cc.Class({
 
     Send_Citizen_Home(node){
         node.citizen_control && node.citizen_control.Go_Home();
+    },
+
+    // Reset cooldowns on end day
+    Reset_Cooldowns(){
+
+        this.Warn_Battery = 100;
+        smsg.Warn_Battery_Indicator.sprite_effect.Set_Wipe(-1);
+        this.Warn_Stop_Recharge();
+
+        this.Stop_Siren();
+        this.Enable_Siren();
+        this.unschedule(this.Stop_Siren);
+        this.unschedule(this.Enable_Siren);
+        smsg.Siren_Cooldown_Indicator.sprite_effect.Set_Wipe(-1);
+
     },
 
 });

@@ -121,6 +121,17 @@ cc.Class({
             joystick_vector.mulSelf(input_mag);
         }
     },
+
+    Touch_End(){ // called on disable
+        switch(this.Input_Type){
+            case INPUT_TYPE.Joystick:
+                this.Joystick_Touch_End();
+            break;
+            case INPUT_TYPE.Button:
+                this.Button_Touch_End();
+            break;
+        }
+    },
     
 
 });
