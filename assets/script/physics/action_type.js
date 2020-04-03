@@ -21,6 +21,7 @@ var ACTION_TYPE = cc.Enum({
     Check_Objects_In_Trigger:-1,
     Remove_Objects_In_Trigger:-1,
     Remove_Objects:-1,
+    Activate_Level:-1,
 });
 
 module.exports = ACTION_TYPE;

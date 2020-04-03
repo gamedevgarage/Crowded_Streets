@@ -194,7 +194,7 @@ cc.Class({
             this.Audio_Source = new Array(); // reset array
 
 
-            var SFX_List = cc.find(smsg.Scene_Nodes.Audio_Sources+"/"+this.Audio_Preset_Name); // Get preset node
+            var SFX_List = cc.find(this.Audio_Preset_Name, smsg.Audio_Sources); // Get preset node
 
             if(SFX_List){ // if node exists
 
@@ -211,7 +211,7 @@ cc.Class({
                 }
 
             }else{ // if node doesn't exist
-                cc.warn("audio_action: Preset node doesn't exists: " + smsg.Scene_Nodes.Audio_Sources+"/"+this.Audio_Preset_Name);
+                cc.warn("audio_action: Preset node doesn't exists: " + this.Audio_Preset_Name);
             }
 
             

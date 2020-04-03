@@ -29,7 +29,6 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_END, this.Joystick_Touch_End, this);
                 this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.Joystick_Touch_End, this);
             break;
-
             case INPUT_TYPE.Button:
                 this.node.on(cc.Node.EventType.TOUCH_START, this.Button_Touch_Start, this);
                 this.node.on(cc.Node.EventType.TOUCH_END, this.Button_Touch_End, this);

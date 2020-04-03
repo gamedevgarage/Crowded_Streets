@@ -450,7 +450,7 @@ var STANDARD_ACTION = cc.Class({
         Scene_Name:{
             default:"",
             visible(){
-                return this.Action_Type == ACTION_TYPE.Load_Scene;
+                return this.Action_Type == ACTION_TYPE.Load_Scene || this.Action_Type == ACTION_TYPE.Activate_Level;
             }
         },
 
@@ -1027,6 +1027,10 @@ var STANDARD_ACTION = cc.Class({
             cc.warn( this.node.name + "<standard_action>: Load_Scene():" + err);
         }
   
+    },
+
+    Activate_Level: function(){
+        smsg.Main_Game_Control.Activate_Level(this.Scene_Name);
     },
 
     Analytics_Event: function(){

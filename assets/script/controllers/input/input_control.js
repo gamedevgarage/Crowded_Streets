@@ -21,13 +21,8 @@ cc.Class({
     },
 
     __preload(){
-
-        // Make this node persist
-        cc.game.addPersistRootNode(this.node);
-
         // Globalize
         smsg.Input_Control = this;
-        
     },
 
     onLoad(){

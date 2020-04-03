@@ -1,5 +1,4 @@
 
-
 // EVENTS
 // "start_day" -> on day started
 // "end_day" -> on day completed
@@ -77,6 +76,42 @@ var DIFF_STEP = cc.Class({
 });
 
 
+
+// Standard action
+var STANDARD_ACTION = require("standard_action");
+
+var LEVEL_TRIGGER_TYPE = cc.Enum({
+    On_Day_Start:-1,
+    On_Day_End:-1,
+    On_Game_Over:-1,
+});
+
+var LEVEL_TRIGGER = cc.Class({
+    name: "LEVEL_TRIGGER",
+    properties:{
+        Trigger_Type:{
+            default:0,
+            type:LEVEL_TRIGGER_TYPE,
+        },
+        Day_Number:{
+            default:1,
+            step:1,
+            min:1,
+            visible(){
+                if(this.Trigger_Type !== LEVEL_TRIGGER_TYPE.On_Game_Over){
+                    return true;
+                }else{
+                    return false;
+                }
+            },
+        },
+        Actions:{
+            default:[],
+            type:[STANDARD_ACTION],
+        },        
+    }
+});
+
 cc.Class({
     extends: cc.Component,
 
@@ -120,12 +155,6 @@ cc.Class({
             min:10,
         },
 
-        Today:{
-            default:0,
-            step:1,
-            min:0,
-        },
-
         Difficulty_Step:{
             default:null,
             type:DIFF_STEP,
@@ -136,10 +165,14 @@ cc.Class({
             type:[DAY_SETUP],
         }, */
 
+        Level_Triggers:[LEVEL_TRIGGER],
+
     },
 
     __preload(){
         smsg.Game_Control = this; // globalize
+        let ui_layer = cc.instantiate(smsg.Main_Game_Control.UI_Layer_Prefab);
+        ui_layer.parent = cc.find("Canvas");
     },
 
     onDestroy(){
@@ -148,6 +181,7 @@ cc.Class({
 
     onLoad(){
 
+        this.Today = 0;
         this.Home_List = [];
         smsg.util.Find_Nodes_With_Tag_In_Tree( smsg.Game_Layer, smsg.OBJECT_TAG_LIST.Home , this.Home_List );
 
@@ -155,6 +189,7 @@ cc.Class({
             cc.error(this.name + ": Home_List is empty!" );
             return;
         }
+        // -------------------------------
 
         this.Citizens_List = []; // nodes
         
@@ -162,14 +197,35 @@ cc.Class({
         this.New_Infection_Count = 0; // for end day stats
         this.Day_Time = 0; // 0 to Day_Duration
         this.Waiting_Everybody_Home_To_End_Day = false; // flag
+        this.Game_Over_Called = false;
+
+        // Actions --------------------
+        for(let t = 0 ; t < this.Level_Triggers.length ; t++ )
+        {
+            let trigger = this.Level_Triggers[t];
+            for(let i = 0 ; i < trigger.Actions.length; i++){
+                trigger.Actions[i].node = this.node;
+                trigger.Actions[i].onLoad();
+            }
+        }
+        // ----------------------------
 
         this.Start_Day();
+    },
+
+    update(dt){
+        for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
+            let trigger = this.Level_Triggers[t];
+            for(let i = 0 ; i < trigger.Actions.length; i++){
+                trigger.Actions[i].update(dt);
+            }
+        }
     },
 
     Spawn_Citizen(){
         if(this.Citizens_List.length > 0){
             let rnd_home = Math.floor(Math.random() * this.Home_List.length); // Spawn from random home
-            let rnd_citizen = Math.floor(Math.random() * this.Citizens_List.length);
+            let rnd_citizen = 0;//Math.floor(Math.random() * this.Citizens_List.length);
             this.Home_List[rnd_home].home_control.Spawn_Citizen(this.Citizens_List[rnd_citizen]);
             this.Citizens_List.splice(rnd_citizen,1);
             this.Street_Count++;
@@ -194,7 +250,30 @@ cc.Class({
         this.Infected_Count += number;
         this.New_Infection_Count += number;
         this.Update_Infected_Indicator();
+
+        if(this.Infected_Count === this.Total_Citizens){
+            this.Game_Over_Called = true;
+            this.Game_Over();
+        }
     },
+
+    // UI Updates -----------------------------------------
+    Update_Infected_Indicator(){
+        smsg.Infected_Indicator.getComponent(cc.Label).string = this.Infected_Count + "/" + this.Total_Citizens;
+    },
+
+    Update_Street_Indicator(){
+        smsg.Street_Indicator.getComponent(cc.Label).string = this.Street_Count;
+    },
+
+    Update_Day_Indicator(){
+        smsg.Day_Indicator.getComponent(cc.Label).string = (this.Today+1)+"("+Math.floor( (this.Day_Time/this.Day_Duration)*100)+"%)";
+    },
+
+    Update_Gold_Indicator(){
+        smsg.Gold_Indicator.getComponent(cc.Label).string = this.Gold_Count;
+    },
+    // -----------------------------------------------------
 
     // Start day with settings
     Start_Day(){
@@ -239,6 +318,16 @@ cc.Class({
 
         this.node.emit("start_day");
 
+        // On_Day_Start trigger
+        for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
+            let trigger = this.Level_Triggers[t];
+            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_Start && trigger.Day_Number === this.Today+1){
+                for(let i = 0 ; i < trigger.Actions.length; i++){
+                    trigger.Actions[i].Action_Function();
+                }
+            }
+        }
+
     },
 
     // End_Day_When_Everybody_At_Home
@@ -254,7 +343,7 @@ cc.Class({
     },
 
     Everybody_At_Home(){
-        if(this.Waiting_Everybody_Home_To_End_Day === true){
+        if(!this.Game_Over_Called && this.Waiting_Everybody_Home_To_End_Day === true){
             cc.log("Day Finished!");
             this.scheduleOnce(function(){
                 this.End_The_Day();
@@ -274,13 +363,45 @@ cc.Class({
     // Shows end day screen
     End_The_Day(){
         this.node.emit("end_day");
-
         this.Stop_Game();
         smsg.Main_Game_Control.Show_End_Day_Screen();
+
+        // Actions
+        for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
+            let trigger = this.Level_Triggers[t];
+            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_End && trigger.Day_Number === this.Today+1){
+                for(let i = 0 ; i < trigger.Actions.length; i++){
+                    trigger.Actions[i].Action_Function();
+                }
+            }
+        }
+    },
+
+    Game_Over(){
+        this.node.emit("end_day");
+        this.Stop_Game();
+        smsg.Main_Game_Control.Show_Game_Over_Screen();
+
+        // Actions
+        for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
+            let trigger = this.Level_Triggers[t];
+            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Game_Over){
+                for(let i = 0 ; i < trigger.Actions.length; i++){
+                    trigger.Actions[i].Action_Function();
+                }
+            }
+        }
     },
 
     Stop_Game(){
-        // We may need to pause all citizens, etc... I don't know :)
+        // stop updates
+        this.unschedule(this.Update_Day_Time);
+        this.unschedule(this.Spawn_Citizen);
+        // pause all citizens
+        let citizens = smsg.Game_Layer.getComponentsInChildren("citizen_control");
+        for(let i = 0 ; i < citizens.length ; i++ ){
+            citizens[i].Pause();
+        }
     },
 
     Start_Next_Day(){
@@ -301,21 +422,4 @@ cc.Class({
         this.Start_Day();
     },
 
-    // UI Updates -----------------------------------------
-    Update_Infected_Indicator(){
-        smsg.Infected_Indicator.getComponent(cc.Label).string = this.Infected_Count + "/" + this.Total_Citizens;
-    },
-
-    Update_Street_Indicator(){
-        smsg.Street_Indicator.getComponent(cc.Label).string = this.Street_Count;
-    },
-
-    Update_Day_Indicator(){
-        smsg.Day_Indicator.getComponent(cc.Label).string = (this.Today+1)+"("+Math.floor( (this.Day_Time/this.Day_Duration)*100)+"%)";
-    },
-
-    Update_Gold_Indicator(){
-        smsg.Gold_Indicator.getComponent(cc.Label).string = this.Gold_Count;
-    },
- 
 });

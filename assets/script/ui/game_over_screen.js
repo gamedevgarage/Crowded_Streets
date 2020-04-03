@@ -5,18 +5,12 @@ cc.Class({
 
         Day_Number:cc.Label,
 
-        New_Infections:cc.Label,
-
         Golds_Earned:cc.Label,
 
     },
 
     Set_Day_Number(number){
         this.Day_Number.string = number;
-    },
-
-    Set_New_Infections(number){
-        this.New_Infections.string = number;
     },
 
     Set_Golds_Earned(number){
@@ -32,12 +26,12 @@ cc.Class({
         this.node.destroy();
     },
 
-    Start_Next_Day(){
+    Load_Home_Screen(){
         this.Hide_Screen();
-        smsg.Main_Game_Control.Start_Next_Day();
+        smsg.Main_Game_Control.Load_Home_Screen();
     },
 
-    Share_End_Day_Screen(){
+    Share_Game_Over_Screen(){
         smsg.Main_Game_Control.Share_Screenshot();
     },
 

@@ -4,6 +4,7 @@ var CITIZEN_STATE_LIST = cc.Enum({
     Idle:-1,
     Walk_Random:-1,
     Walk_Home:-1,
+    Pause: -1,
 });
 
 
@@ -48,6 +49,7 @@ cc.Class({
 
         // Defaults
         this.STATE = CITIZEN_STATE_LIST.Idle;
+        this.Previous_State = this.STATE;
 
         this.Idle_Duration = 1; // duration to count
         this.Idle_Time = this.Idle_Duration; // count value
@@ -119,46 +121,55 @@ cc.Class({
                 
             break;
 
-        }
+            case CITIZEN_STATE_LIST.Pause: // IDLE
+                
+            break;
 
+            default:
+
+        }
     },
 
     Change_State(state){
-
-        // cc.log("Change_State: " + state);
-
         switch(state){
-
             case CITIZEN_STATE_LIST.Idle:
                 this.Idle_Time = this.Idle_Duration;
                 this.STATE = CITIZEN_STATE_LIST.Idle;
                 this.Walk_Target = null;
-                this.Sensor.active=false;
+                this.Deactivate_Sensor();
             break;
 
             case CITIZEN_STATE_LIST.Walk_Random:
                 if(!this.Walk_Target){ // if no target, set target
                     this.Set_Random_Walk_Target();
                 }
-                this.Sensor.active=false;
-                this.scheduleOnce(function(){
-                    this.Sensor.active=true;
-                }.bind(this),this.Sensor_Off_Duration);
+                this.Deactivate_Sensor();
+                this.scheduleOnce(this.Activate_Sensor,this.Sensor_Off_Duration);
                 this.STATE = CITIZEN_STATE_LIST.Walk_Random;
             break;
 
             case CITIZEN_STATE_LIST.Walk_Home:
                 this.Set_Walk_Home_Target();
-                this.Sensor.active=false;
-                this.scheduleOnce(function(){
-                    this.Sensor.active=true;
-                }.bind(this),this.Sensor_Off_Duration);
-                
+                this.Deactivate_Sensor();
+                this.scheduleOnce(this.Activate_Sensor,this.Sensor_Off_Duration);
                 this.STATE = CITIZEN_STATE_LIST.Walk_Home;
             break;
 
+            case CITIZEN_STATE_LIST.Pause:
+                this.Previous_State = this.STATE;
+                this.STATE = CITIZEN_STATE_LIST.Pause;
+                this.unschedule(this.Activate_Sensor);
+                this.Stop_Sneeze();
+            break;
         }
+    },
 
+    Activate_Sensor(){
+        this.Sensor.active=true;
+    },
+
+    Deactivate_Sensor(){
+        this.Sensor.active=false;
     },
 
     Set_Random_Walk_Target(){
@@ -298,6 +309,10 @@ cc.Class({
 
             break;
 
+            case CITIZEN_STATE_LIST.Pause:
+
+            break;
+
             default:
                 this.Change_State(CITIZEN_STATE_LIST.Idle);
         }
@@ -321,10 +336,7 @@ cc.Class({
         if(status){ // Infect
             if(internal || !this.Infected){
                 this.Infected = true;
-                if(this.Sneeze_Rate>0){
-                    let rate_randomized = this.Sneeze_Rate+(this.Sneeze_Rate*this.Sneeze_Rate_Randomize* Math.random())-(this.Sneeze_Rate*this.Sneeze_Rate_Randomize/ 2);
-                    this.schedule(this.Sneeze,60/(rate_randomized));
-                }
+                this.Start_Sneeze();
                 this.node.color = new cc.Color(255, 25, 25);
 
                 if(!internal){
@@ -334,14 +346,30 @@ cc.Class({
         }else{ // Heal
             if(this.Infected){
                 this.Infected = false;
-                this.unschedule(this.Sneeze);
+                this.Stop_Sneeze();
                 this.node.color = new cc.Color(255, 255, 255);
             }
         }
     },
 
+    Start_Sneeze(){
+        if(this.Sneeze_Rate>0){
+            let rate_randomized = this.Sneeze_Rate+(this.Sneeze_Rate*this.Sneeze_Rate_Randomize* Math.random())-(this.Sneeze_Rate*this.Sneeze_Rate_Randomize/ 2);
+            this.schedule(this.Sneeze,60/(rate_randomized));
+        }
+    },
+
+    Stop_Sneeze(){
+        this.unschedule(this.Sneeze);
+    },
+
     Infect_With_Sneeze(node){ // Called by sensor physics trigger
         node.citizen_control && node.citizen_control.Set_Infected(true);
+    },
+
+
+    Pause(){
+        this.Change_State(CITIZEN_STATE_LIST.Pause);
     },
 
 
