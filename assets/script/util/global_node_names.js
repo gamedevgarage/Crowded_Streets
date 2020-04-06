@@ -15,7 +15,8 @@ var GLOBAL_NODE_NAMES = cc.Enum({
     UI_Layer:-1,
     Input_Control_Buttons:-1,
     Game_Layer:-1,
-    Audio_Sources: -1,
+    Audio_Sources:-1,
+    Screenshot_Camera:-1,
 });
 
 module.exports = GLOBAL_NODE_NAMES;

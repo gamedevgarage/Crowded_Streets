@@ -1,5 +1,17 @@
 
+
+// String compression library 
+require("lz_string");
+
 var AUDIO_LAYERS = require("audio_layers");
+
+/* Custom events ===============================
+    "internet_connected"     => emits when go online
+    "internet_disconnected"  => emits when go offline
+    "before_scene_load"
+    "after_scene_load"
+================================================ */
+
 
 cc.Class({
     extends: cc.Component,
@@ -38,8 +50,14 @@ cc.Class({
         this.Save_Data = null;
         this.Paused = false;
 
+        // Scene load
         cc.director.on(cc.Director.EVENT_BEFORE_SCENE_LOADING,this.Before_Scene_Load,this); 
         cc.director.on(cc.Director.EVENT_BEFORE_SCENE_LAUNCH,this.After_Scene_Load,this); 
+
+
+        // Internet connection
+        this.Internet_Connection = false;
+        this.Check_Internet_Connection_Loop(); // start check connection loop
 
         // Physics Settings
         this.physics_manager = cc.director.getPhysicsManager();
@@ -58,6 +76,9 @@ cc.Class({
     },
 
     Before_Scene_Load(){
+
+        this.node.emit("before_scene_load");
+
         // Child nodes
         this.Children_Nodes = [];
         for(let i = 0 ; i<this.node.children.length ; i++ ){
@@ -71,6 +92,48 @@ cc.Class({
         for(let i = 0 ; i<this.Children_Nodes.length ; i++ ){
             let child = this.Children_Nodes[i];
             child.parent = this.node;
+        }
+
+        this.node.emit("after_scene_load");
+    },
+
+    Check_Internet_Connection_Loop(){
+        this.Ping_Server(
+            function(res){ // if connected
+                if(this.Internet_Connection === false){ // was not connected
+                    this.Internet_Connection = true; // set flag
+                    this.node.emit('internet_connected');// emit event
+                }
+                this.unschedule(this.Check_Internet_Connection_Loop);
+            }.bind(this),
+            function(res){ // if not connected
+                if(this.Internet_Connection === true){ // was connected
+                    this.Internet_Connection = false; // set flag
+                    this.node.emit('internet_disconnected');// emit event
+                }
+                this.scheduleOnce(this.Check_Internet_Connection_Loop,10); // check every 10 secs if not online
+            }.bind(this)
+        );
+    },
+    
+    Ping_Server( Connected , Not_Connected ) {
+        let started = new Date().getTime();
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://gamejolt.com/api/game/v1", /*async*/true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                Connected();
+            }else{
+                Not_Connected();
+            }
+        };
+        xhr.onerror = function() {
+            Not_Connected();
+        };
+        try {
+            xhr.send(null);
+        } catch(exception) {
+            // expected
         }
     },
 
@@ -90,13 +153,15 @@ cc.Class({
         let comp = end_day_screen.getComponent("end_day_screen");
         comp.Set_Day_Number(smsg.Game_Control.Today+1);
         comp.Set_New_Infections(smsg.Game_Control.New_Infection_Count);
-        comp.Set_Golds_Earned(smsg.Game_Control.Gold_Count);
+        comp.Set_Golds_Earned(smsg.Game_Control.Today_Gold_Count);
         comp.Show_Screen();
     },
 
     Start_Next_Day(){ // called from game_control
-        smsg.Game_Control.Start_Next_Day();
-        smsg.Input_Control.Enable_Input();
+        smsg.Monetization_Control.Show_Interstitial("Next_Day",function(){
+            smsg.Game_Control.Start_Next_Day();
+            smsg.Input_Control.Enable_Input();
+        }.bind(this));
     },
 
     Show_Game_Over_Screen(){// called from game_control
@@ -212,7 +277,7 @@ cc.Class({
     },
 
     Share_Screenshot(){
-        cc.log("SHARE SCREENSHOT");
+        smsg.Native_Share.Share_Screenshot();
     },
 
     Toggle_Pause(){
@@ -231,12 +296,29 @@ cc.Class({
             return;
         }
         if(!this.Paused){
-            this.Paused = true;
+
+            // Physics and collisions
+            this.physics_manager.enabled = false;
+            //this.std_collision_manager.enabled = false;
+
+            // Game Layer
+            smsg.Game_Layer.pauseSystemEvents(true);
+            this.Pause_Node_Tree(smsg.Game_Layer);
+
+            // Audio
+            smsg.Audio_Control.Pause_All_Layers();
+
+            // Input
             smsg.Input_Control.Disable_Input();
+
+            // Pause Screen
             let game_over_screen = cc.instantiate(this.Pause_Screen);
             game_over_screen.parent = smsg.UI_Layer;
             let comp = game_over_screen.getComponent("pause_screen_control");
             comp.Show_Screen();
+
+            // Flag
+            this.Paused = true;
         }
     },
 
@@ -245,12 +327,99 @@ cc.Class({
             return;
         }
         if(this.Paused){
-            this.Paused = false;
+
+            // Physics and collisions
+            this.physics_manager.enabled = true;
+            //this.std_collision_manager.enabled = true;
+
+            // Game Layer
+            smsg.Game_Layer.resumeSystemEvents(true);
+            this.Resume_Node_Tree(smsg.Game_Layer);
+            
+            // Audio
+            smsg.Audio_Control.Resume_All_Layers(); // resume all layers
+
             smsg.Pause_Screen_Control.Hide_Screen();
             smsg.Input_Control.Enable_Input();
+
+            // Flag
+            this.Paused = false;
         }
     },
 
+    Pause_Node_Tree(node){
+        
+        let that = this;
+
+        for(let i = 0 , n = node.children.length; i < n ; i++){
+            that.Pause_Node_Tree(node.children[i]);
+        }
+
+        // Don't pause if not active
+        if(node.activeInHierarchy){
+            node.pauseAllActions();
+            cc.director.getScheduler().pauseTarget(node);
+
+            // Pause components
+            for(let i = 0 , n = node._components.length ; i < n ; i++ ){
+                cc.director.getScheduler().pauseTarget(node._components[i]);   
+
+                // pause updates
+                node._components[i].old_update = node._components[i].update;
+                node._components[i].update = function(){return};
+
+                node._components[i].old_late_update = node._components[i].lateUpdate;
+                node._components[i].lateUpdate = function(){return};
+
+                switch(node._components[i].__classname__){
+
+                    case "cc.Animation":
+                        node._components[i].pause();
+                    break;
+
+                }
+
+            }
+        }
+
+    },
+
+    Resume_Node_Tree(node){
+
+        let that = this;
+
+        for(let i = 0 , n = node.children.length; i < n ; i++){
+            that.Resume_Node_Tree(node.children[i]);
+        }
+
+        // Don't resume if not active because we didn't pause it
+        if(node.activeInHierarchy){
+            node.resumeAllActions();
+            cc.director.getScheduler().resumeTarget(node);
+            // Resume components
+            for(let i = 0 , n = node._components.length ; i < n ; i++ ){
+                cc.director.getScheduler().resumeTarget(node._components[i]);
+
+                // resume updates
+                if(node._components[i].old_update){ // we check to make sure otherwise game loop may broke
+                    node._components[i].update = node._components[i].old_update;
+                }
+                if(node._components[i].old_late_update){ // we check to make sure otherwise game loop may broke
+                    node._components[i].lateUpdate = node._components[i].old_late_update;
+                }
+
+                switch(node._components[i].__classname__){
+
+                    case "cc.Animation":
+                        node._components[i].resume();
+                    break;
+
+                }
+                
+            }
+        }
+        
+    },
 
  
 });

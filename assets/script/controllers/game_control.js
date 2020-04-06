@@ -96,7 +96,8 @@ var LEVEL_TRIGGER = cc.Class({
         Day_Number:{
             default:1,
             step:1,
-            min:1,
+            min:0,
+            tooltip:"0: Tigger every day",
             visible(){
                 if(this.Trigger_Type !== LEVEL_TRIGGER_TYPE.On_Game_Over){
                     return true;
@@ -198,6 +199,7 @@ cc.Class({
         this.Day_Time = 0; // 0 to Day_Duration
         this.Waiting_Everybody_Home_To_End_Day = false; // flag
         this.Game_Over_Called = false;
+        this.Today_Gold_Count = 0;
 
         // Actions --------------------
         for(let t = 0 ; t < this.Level_Triggers.length ; t++ )
@@ -237,6 +239,7 @@ cc.Class({
         this.Citizens_List.push(node);
         this.Street_Count--;
         this.Gold_Count++;
+        this.Today_Gold_Count++;
         this.Update_Street_Indicator();
         this.Update_Gold_Indicator();
         
@@ -318,10 +321,13 @@ cc.Class({
 
         this.node.emit("start_day");
 
+        // Analytics
+        smsg.Analytics_Control.Level_Start();
+
         // On_Day_Start trigger
         for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
             let trigger = this.Level_Triggers[t];
-            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_Start && trigger.Day_Number === this.Today+1){
+            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_Start && ( trigger.Day_Number === 0 || trigger.Day_Number === this.Today+1 )){
                 for(let i = 0 ; i < trigger.Actions.length; i++){
                     trigger.Actions[i].Action_Function();
                 }
@@ -366,10 +372,13 @@ cc.Class({
         this.Stop_Game();
         smsg.Main_Game_Control.Show_End_Day_Screen();
 
+        // Analytics
+        smsg.Analytics_Control.Level_Complete(null,null,this.Today+1);
+
         // Actions
         for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
             let trigger = this.Level_Triggers[t];
-            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_End && trigger.Day_Number === this.Today+1){
+            if(trigger.Trigger_Type === LEVEL_TRIGGER_TYPE.On_Day_End &&  ( trigger.Day_Number === 0 || trigger.Day_Number === this.Today+1 ) ){
                 for(let i = 0 ; i < trigger.Actions.length; i++){
                     trigger.Actions[i].Action_Function();
                 }
@@ -381,6 +390,9 @@ cc.Class({
         this.node.emit("end_day");
         this.Stop_Game();
         smsg.Main_Game_Control.Show_Game_Over_Screen();
+
+        // Analytics
+        smsg.Analytics_Control.Level_Fail(null,null,this.Today+1);
 
         // Actions
         for(let t = 0 ; t < this.Level_Triggers.length ; t++ ){
@@ -418,6 +430,8 @@ cc.Class({
 
         this.Sneeze_Rate = Math.ceil( this.Sneeze_Rate * (1+(this.Difficulty_Step.Sneeze_Rate_Percent/100)));
         this.Sneeze_Rate += this.Difficulty_Step.Sneeze_Rate;
+
+        this.Today_Gold_Count = 0;
 
         this.Start_Day();
     },

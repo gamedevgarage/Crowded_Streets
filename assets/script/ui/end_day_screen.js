@@ -9,6 +9,16 @@ cc.Class({
 
         Golds_Earned:cc.Label,
 
+        Rewarded_Video_Button:cc.Node,
+
+    },
+
+    __preload(){
+        smsg.End_Day_Screen = this;
+    },
+
+    onDestroy(){
+        smsg.End_Day_Screen = null;
     },
 
     Set_Day_Number(number){
@@ -39,6 +49,14 @@ cc.Class({
 
     Share_End_Day_Screen(){
         smsg.Main_Game_Control.Share_Screenshot();
+    },
+
+    Show_Rewarded_Video(){
+        smsg.Monetization_Control.Show_Rewarded_Video();
+    },
+
+    Video_Reward_Achieved(){
+        this.Rewarded_Video_Button.active = false;
     },
 
 });

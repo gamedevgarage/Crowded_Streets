@@ -161,7 +161,7 @@ var Audio_Control = {
         }
 
         this.Layer_Paused [audio_layer] = true;
-
+        
     },
 
     Resume_Layer( audio_layer ){
@@ -175,21 +175,26 @@ var Audio_Control = {
         
     },
 
-    Resume_All_Layers(){
-
+    Pause_All_Layers( audio_layer ){
         for(let l = 0 ; l < Object.keys(AUDIO_LAYERS).length ; l++ ){
-
             let audio_layer = Object.values(AUDIO_LAYERS)[l];
+            for(let i = 0 ; i < this.Audio_Layers[audio_layer].length ; i++ ){
+                this.Audio_Layers[audio_layer][i].pause();
+                this.Audio_Layers[audio_layer][i].smsg_in_paused_layer = true;
+            }
+            this.Layer_Paused [audio_layer] = true;
+        }
+    },
 
+    Resume_All_Layers(){
+        for(let l = 0 ; l < Object.keys(AUDIO_LAYERS).length ; l++ ){
+            let audio_layer = Object.values(AUDIO_LAYERS)[l];
             for(let i = 0 ; i < this.Audio_Layers[audio_layer].length ; i++ ){
                 this.Audio_Layers[audio_layer][i].resume();
                 this.Audio_Layers[audio_layer][i].smsg_in_paused_layer = false;
             }
-    
             this.Layer_Paused [audio_layer] = false;
-            
         }
-
     },
 
     Set_AudioSource_Volume( audio_source , volume ){ // used in distance update

@@ -1,13 +1,9 @@
 
+
 // Game Analytics API
 require("gameanalytics"); // defines window.ga for global usage
 
-// String compression library 
-//var LZString = require("lz_string");
-
 var ANALYTICS_EVENT_TYPE = require("analytics_event_type");
-
-
 
 cc.Class({
     extends: cc.Component,
@@ -23,20 +19,15 @@ cc.Class({
             visible:false,
         },
 
-        
-
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    __preload(){
+        // Globalize
+        smsg.Analytics_Control = this;
+    },
 
     onLoad () {
 
-        // Make this node persist
-        cc.game.addPersistRootNode(this.node);
-
-        // Make this comp global
-        smsg.Analytics_Control = this;
-        
         // Game goes background
         cc.game.on(cc.game.EVENT_HIDE, function () {
             this.End_Analytics_Session();
@@ -57,7 +48,6 @@ cc.Class({
 
     start () {
         smsg.Main_Game_Control.node.once("internet_connected",this.Init_Analytics,this); // init once when online
-        // smsg.Main_Game_Control.node.once("user_login",this.Init_Analytics,this); // init once user login
     },
 
     Init_Analytics(force = false){// Force it if you're sure that you need
@@ -76,11 +66,11 @@ cc.Class({
             //     ga.GameAnalytics.configureUserId(smsg.User_Info.email);
             // }
 
-            ga.GameAnalytics.configureAvailableResourceCurrencies(["CrystalEnergy"]);
-            ga.GameAnalytics.configureAvailableResourceItemTypes(["CollectCrystalEnergy","RepairSpaceship","UpgradeSpaceship","RefuelSpaceship"]);
+            // ga.GameAnalytics.configureAvailableResourceCurrencies(["CrystalEnergy"]);
+            // ga.GameAnalytics.configureAvailableResourceItemTypes(["CollectCrystalEnergy","RepairSpaceship","UpgradeSpaceship","RefuelSpaceship"]);
 
             ga.GameAnalytics.configureBuild( smsg.Build_Platform + " " + smsg.Build_Number );
-            ga.GameAnalytics.initialize("5a9b6fe9e8dd79d31ed9599b50c6140b", "a1f23dce842f6c8e50206e746b13b57d07547303");
+            ga.GameAnalytics.initialize("6d7cdd1e14609f0d4bbef8ae1dec13f5", "cfe51b1ac1c0dbb95f79a30340097b55876ef0a5");
 
             this.Analytics_Initialized = true;
 
@@ -199,29 +189,30 @@ cc.Class({
         ga.GameAnalytics.addProgressionEvent( ga.EGAProgressionStatus.Start, scene_name , event_detail );
     },
 
-    Level_Complete(event_detail,scene_name){
+    Level_Complete(event_detail,scene_name,score){
 
         scene_name = scene_name || smsg.util.Get_Current_Scene_Name();
+        score = score || 0;
 
         if(!this.Analytics_Ready()){ // Not ready - log offline
-            this.Offline_Log( "Level_Complete" , [event_detail,scene_name] );            
+            this.Offline_Log( "Level_Complete" , [event_detail,scene_name,score] );            
             return;
         }
 
-        ga.GameAnalytics.addProgressionEvent( ga.EGAProgressionStatus.Complete, scene_name , event_detail);
+        ga.GameAnalytics.addProgressionEvent( ga.EGAProgressionStatus.Complete, scene_name , event_detail , null , score );
     },
 
-    Level_Fail(event_detail,scene_name){
+    Level_Fail(event_detail,scene_name,score){
 
         scene_name = scene_name || smsg.util.Get_Current_Scene_Name();
+        score = score || 0;
 
         if(!this.Analytics_Ready()){ // Not ready - log offline
-            this.Offline_Log( "Level_Fail" , [event_detail,scene_name] );            
+            this.Offline_Log( "Level_Fail" , [event_detail,scene_name,score] );            
             return;
         }
 
-        ga.GameAnalytics.addProgressionEvent( ga.EGAProgressionStatus.Fail, scene_name , event_detail ); // event_detail can be empty
-    
+        ga.GameAnalytics.addProgressionEvent( ga.EGAProgressionStatus.Fail, scene_name , event_detail , null , score ); // event_detail can be empty
     },
 
     Save_Game(scene_name){
