@@ -19,31 +19,32 @@ cc.Class({
     },
 
     onLoad(){
-        this.Screenshot_Camera = smsg.Screenshot_Camera.getComponent(cc.Camera);
         this.Render_Texture = new cc.RenderTexture();
         this.Render_Texture.initWithSize(cc.visibleRect.width, cc.visibleRect.height, cc.gfx.RB_FMT_S8);
-        this.Screenshot_Camera.targetTexture = this.Render_Texture;
     },
 
     Share_Screenshot(){
-
         if(this.Busy){ // prevent multiple calls
             return;
         }
-
         this.Busy = true;
 
-        if(true /* smsg.Sdkbox_Control.Share_Available() */){
-            this.Screenshot_Camera.enabled = true;
-            this.scheduleOnce(function(){ // let the camera to render 1 frame
+        if( true || smsg.Sdkbox_Control.Share_Available() ){
+            this.Set_Render_Target(this.Render_Texture); // let the camera to render one frame on the texture
+            this.scheduleOnce(function(){ 
                 this.Capture_Screen_And_Share();
-                this.Screenshot_Camera.enabled = false;
+                this.Set_Render_Target(null); // remove render target
             }.bind(this),0);
-           
         }else{
             cc.log("Share is not available!");
         }
+    },
 
+    Set_Render_Target(render_texture){
+        for(let i = 0 ; i < cc.Camera.cameras.length ; i++ ){
+            let cam = cc.Camera.cameras[i];
+            cam.targetTexture = render_texture;
+        } 
     },
 
     Capture_Screen_And_Share(){
@@ -56,7 +57,7 @@ cc.Class({
 
         let filename = jsb.fileUtils.getWritablePath() + "Crowded_Streets_"+this.Time_Stamp()+".jpg";
 
-        cc.log(filename);
+        // cc.log(filename);
 
         this.Write_To_File( jpeg_bytes , filename , function(){
 

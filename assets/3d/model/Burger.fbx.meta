@@ -1,0 +1,207 @@
+{
+  "ver": "1.0.14",
+  "uuid": "0f7efdbf-efc7-4c82-9514-d372308a52eb",
+  "scaleFactor": 1,
+  "boneCount": 0,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.0",
+      "uuid": "f8a05649-525c-4425-9012-0cb37206bac6",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Burger_2.mesh": {
+      "ver": "1.0.1",
+      "uuid": "7303b847-9cdc-424d-b243-b1062a6b6426",
+      "verts": 284,
+      "tris": 170,
+      "submeshes": 4,
+      "minPos": {
+        "x": -5.25,
+        "y": 0,
+        "z": -3.29999995231628
+      },
+      "maxPos": {
+        "x": 5.25,
+        "y": 3.5,
+        "z": 3.28256821632385
+      },
+      "name": "Burger_2.mesh",
+      "subMetas": {}
+    },
+    "Burger_Text.mesh": {
+      "ver": "1.0.1",
+      "uuid": "e965b9a7-145b-4b82-ab73-6246d4e493ff",
+      "verts": 1336,
+      "tris": 884,
+      "submeshes": 1,
+      "minPos": {
+        "x": -1.07599115371704,
+        "y": -0.0134130856022239,
+        "z": -0.140000000596046
+      },
+      "maxPos": {
+        "x": 8.72598648071289,
+        "y": 0.494321286678314,
+        "z": 0
+      },
+      "name": "Burger_Text.mesh",
+      "subMetas": {}
+    },
+    "Burger.prefab": {
+      "ver": "1.2.6",
+      "uuid": "30c3c62e-cbbf-4bbf-b480-803d76418fbf",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "Burger.prefab",
+      "subMetas": {}
+    },
+    "Burger_Aircondition.mtl": {
+      "ver": "1.0.3",
+      "uuid": "e9157066-20ce-4ed3-9f2b-ed89bf3b8334",
+      "dataAsSubAsset": null,
+      "name": "Burger_Aircondition.mtl",
+      "subMetas": {}
+    },
+    "Burger_Top.mtl": {
+      "ver": "1.0.3",
+      "uuid": "c0940588-2edc-4a60-abd0-60681c950326",
+      "dataAsSubAsset": null,
+      "name": "Burger_Top.mtl",
+      "subMetas": {}
+    },
+    "Burger_Glass.mtl": {
+      "ver": "1.0.3",
+      "uuid": "8154f172-2876-471f-9858-0164a46860f5",
+      "dataAsSubAsset": null,
+      "name": "Burger_Glass.mtl",
+      "subMetas": {}
+    },
+    "Burger_Walls.mtl": {
+      "ver": "1.0.3",
+      "uuid": "33dc76ec-03ad-4390-82c2-e60646007100",
+      "dataAsSubAsset": null,
+      "name": "Burger_Walls.mtl",
+      "subMetas": {}
+    },
+    "Burger_Text.mtl": {
+      "ver": "1.0.3",
+      "uuid": "95306754-69d2-42ad-9f93-f76836c27a0c",
+      "dataAsSubAsset": null,
+      "name": "Burger_Text.mtl",
+      "subMetas": {}
+    }
+  }
+}

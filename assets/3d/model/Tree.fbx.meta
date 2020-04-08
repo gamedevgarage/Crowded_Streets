@@ -1,0 +1,167 @@
+{
+  "ver": "1.0.14",
+  "uuid": "77b84509-62d0-4cf5-a315-c63c0d689b35",
+  "scaleFactor": 1,
+  "boneCount": 0,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.0",
+      "uuid": "e09a7ece-81af-4f1a-ad69-21931e510cbe",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Tree_2.mesh": {
+      "ver": "1.0.1",
+      "uuid": "27858ff9-6ab4-486a-a040-fb8b06e6fa6f",
+      "verts": 338,
+      "tris": 118,
+      "submeshes": 2,
+      "minPos": {
+        "x": -1.05061149597168,
+        "y": -2.21678304672241,
+        "z": -1.22905337810516
+      },
+      "maxPos": {
+        "x": 1.08535373210907,
+        "y": 2.6595458984375,
+        "z": 1.24241602420807
+      },
+      "name": "Tree_2.mesh",
+      "subMetas": {}
+    },
+    "Tree.prefab": {
+      "ver": "1.2.6",
+      "uuid": "8c412003-6f90-4ac8-a5bd-ded59b32e3da",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "Tree.prefab",
+      "subMetas": {}
+    },
+    "Mat.mtl": {
+      "ver": "1.0.3",
+      "uuid": "abf64fcf-de31-44a5-bfa4-bf4debc01f55",
+      "dataAsSubAsset": null,
+      "name": "Mat.mtl",
+      "subMetas": {}
+    },
+    "Mat.1.mtl": {
+      "ver": "1.0.3",
+      "uuid": "41787610-38c0-42ce-9d9d-1e9a03a0b49c",
+      "dataAsSubAsset": null,
+      "name": "Mat.1.mtl",
+      "subMetas": {}
+    }
+  }
+}
