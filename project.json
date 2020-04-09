@@ -3,6 +3,7 @@
   "packages": "packages",
   "name": "StayAtHome",
   "uuid": "e64f360f-8f81-410b-902a-51d9bbcef9c3",
-  "version": "2.3.2",
-  "id": "8707cec8-7b37-4e18-8d2c-52dbb7ca008e"
+  "version": "2.3.3",
+  "id": "8707cec8-7b37-4e18-8d2c-52dbb7ca008e",
+  "isNew": false
 }

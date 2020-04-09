@@ -1,6 +1,6 @@
 {
   "__type__": "cc.Material",
-  "_name": "New Material",
+  "_name": "Burger - 001",
   "_objFlags": 0,
   "_native": "",
   "_effectAsset": {
@@ -9,14 +9,12 @@
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
-      "defines": {},
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
       "props": {
-        "diffuseColor": {
-          "__type__": "cc.Color",
-          "r": 126,
-          "g": 183,
-          "b": 255,
-          "a": 255
+        "diffuseTexture": {
+          "__uuid__": "5ede6de8-b104-46b1-9b85-4158ac1f7fbb"
         }
       }
     }

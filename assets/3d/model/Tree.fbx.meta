@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "77b84509-62d0-4cf5-a315-c63c0d689b35",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -17,7 +17,14 @@
       "uuid": "27858ff9-6ab4-486a-a040-fb8b06e6fa6f",
       "verts": 322,
       "tris": 110,
-      "submeshes": 2,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -1.00228524208069,
         "y": 0.000142646706080996,
@@ -32,7 +39,7 @@
       "subMetas": {}
     },
     "Tree.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "8c412003-6f90-4ac8-a5bd-ded59b32e3da",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -149,18 +156,11 @@
       "name": "Tree.prefab",
       "subMetas": {}
     },
-    "Mat.mtl": {
+    "Tree.mtl": {
       "ver": "1.0.3",
-      "uuid": "abf64fcf-de31-44a5-bfa4-bf4debc01f55",
+      "uuid": "36c14bcb-d020-47d8-b7e1-ab731c222c2f",
       "dataAsSubAsset": null,
-      "name": "Mat.mtl",
-      "subMetas": {}
-    },
-    "Mat.1.mtl": {
-      "ver": "1.0.3",
-      "uuid": "41787610-38c0-42ce-9d9d-1e9a03a0b49c",
-      "dataAsSubAsset": null,
-      "name": "Mat.1.mtl",
+      "name": "Tree.mtl",
       "subMetas": {}
     }
   }

@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "6a76d7a6-471c-40de-8e35-97cc2f2edc7b",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,9 +15,16 @@
     "Market_2.mesh": {
       "ver": "1.0.1",
       "uuid": "18c9c3b2-1e43-44d3-a125-377ff8c7b60b",
-      "verts": 474,
-      "tris": 322,
-      "submeshes": 6,
+      "verts": 2013,
+      "tris": 1271,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -6.15999984741211,
         "y": 0,
@@ -26,32 +33,13 @@
       "maxPos": {
         "x": 6.15999984741211,
         "y": 4.34999990463257,
-        "z": 4.59999990463257
+        "z": 4.71205949783325
       },
       "name": "Market_2.mesh",
       "subMetas": {}
     },
-    "Market_Text.mesh": {
-      "ver": "1.0.1",
-      "uuid": "8e84e802-debd-47cb-af05-6a7c217706e9",
-      "verts": 1493,
-      "tris": 949,
-      "submeshes": 1,
-      "minPos": {
-        "x": -3.15632319450378,
-        "y": -0.015039062127471,
-        "z": -0.140000000596046
-      },
-      "maxPos": {
-        "x": 3.15632319450378,
-        "y": 0.569980442523956,
-        "z": 0
-      },
-      "name": "Market_Text.mesh",
-      "subMetas": {}
-    },
     "Market.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "817a6b2e-d524-45ae-b61f-7ef273304ab1",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -168,53 +156,11 @@
       "name": "Market.prefab",
       "subMetas": {}
     },
-    "Market_Wall.mtl": {
+    "Market.mtl": {
       "ver": "1.0.3",
-      "uuid": "75478b81-97dd-4f26-9cf3-1b8f5850bf0a",
+      "uuid": "755051a6-59c6-4c28-b71b-6f8b3f5c494c",
       "dataAsSubAsset": null,
-      "name": "Market_Wall.mtl",
-      "subMetas": {}
-    },
-    "Market_Aircondition.mtl": {
-      "ver": "1.0.3",
-      "uuid": "94edff9b-fb66-479d-9374-1f2163a9d994",
-      "dataAsSubAsset": null,
-      "name": "Market_Aircondition.mtl",
-      "subMetas": {}
-    },
-    "Market_Top.mtl": {
-      "ver": "1.0.3",
-      "uuid": "69f28292-85b1-4e25-bd95-5a29217783e7",
-      "dataAsSubAsset": null,
-      "name": "Market_Top.mtl",
-      "subMetas": {}
-    },
-    "Market_Glass.mtl": {
-      "ver": "1.0.3",
-      "uuid": "594af85b-c4ee-4dd0-bd8a-951fe238629f",
-      "dataAsSubAsset": null,
-      "name": "Market_Glass.mtl",
-      "subMetas": {}
-    },
-    "Market_Roof.mtl": {
-      "ver": "1.0.3",
-      "uuid": "2ea5b29b-8a53-4c7e-a42d-ea5bd8e10e2a",
-      "dataAsSubAsset": null,
-      "name": "Market_Roof.mtl",
-      "subMetas": {}
-    },
-    "Market_Frame.mtl": {
-      "ver": "1.0.3",
-      "uuid": "fa0ea2c8-ecc6-4795-95e3-6b71bbcf130b",
-      "dataAsSubAsset": null,
-      "name": "Market_Frame.mtl",
-      "subMetas": {}
-    },
-    "Market_Text.mtl": {
-      "ver": "1.0.3",
-      "uuid": "2bb473ae-e1ee-4a99-8201-0256fa184853",
-      "dataAsSubAsset": null,
-      "name": "Market_Text.mtl",
+      "name": "Market.mtl",
       "subMetas": {}
     }
   }

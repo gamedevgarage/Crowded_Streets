@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Market",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "4ed08457-76a7-4c1b-88f2-0108f06ba9dd"
+        }
+      }
+    }
+  }
+}

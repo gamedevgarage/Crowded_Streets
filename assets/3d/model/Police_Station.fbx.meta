@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "36c6044d-245e-4a01-ac20-95749527aa40",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,9 +15,16 @@
     "Police_Station_2.mesh": {
       "ver": "1.0.1",
       "uuid": "afb467db-78a0-4534-bd44-e9f8eaad4591",
-      "verts": 759,
+      "verts": 779,
       "tris": 446,
-      "submeshes": 6,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -2.21725058555603,
         "y": 0,
@@ -32,7 +39,7 @@
       "subMetas": {}
     },
     "Police_Station.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "bda87d82-c090-4040-8d13-cbb110c7fca9",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -149,46 +156,11 @@
       "name": "Police_Station.prefab",
       "subMetas": {}
     },
-    "Police_White.mtl": {
+    "Police_Station.mtl": {
       "ver": "1.0.3",
-      "uuid": "4fa8a2f5-d284-486a-a42d-4b044d9d1243",
+      "uuid": "62f19438-2f28-4184-9c85-73d6692a3bb7",
       "dataAsSubAsset": null,
-      "name": "Police_White.mtl",
-      "subMetas": {}
-    },
-    "Mat.1.mtl": {
-      "ver": "1.0.3",
-      "uuid": "544814ea-15ea-4bf9-8d35-2b6743e36865",
-      "dataAsSubAsset": null,
-      "name": "Mat.1.mtl",
-      "subMetas": {}
-    },
-    "Police_Wall.mtl": {
-      "ver": "1.0.3",
-      "uuid": "61cbadf6-9659-47a9-854c-0cb66e880e29",
-      "dataAsSubAsset": null,
-      "name": "Police_Wall.mtl",
-      "subMetas": {}
-    },
-    "Police_Frame.mtl": {
-      "ver": "1.0.3",
-      "uuid": "ff5aea6b-6f62-4689-adb8-67f27d088fe0",
-      "dataAsSubAsset": null,
-      "name": "Police_Frame.mtl",
-      "subMetas": {}
-    },
-    "Police_Door.mtl": {
-      "ver": "1.0.3",
-      "uuid": "566b7877-1fe8-4593-b163-cab146cc6f7d",
-      "dataAsSubAsset": null,
-      "name": "Police_Door.mtl",
-      "subMetas": {}
-    },
-    "Mat.2.mtl": {
-      "ver": "1.0.3",
-      "uuid": "8006fc9f-cbb6-4373-8d63-cd725a75437a",
-      "dataAsSubAsset": null,
-      "name": "Mat.2.mtl",
+      "name": "Police_Station.mtl",
       "subMetas": {}
     }
   }

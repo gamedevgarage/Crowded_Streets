@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "eedbf2bb-76e0-4d69-a906-a901e2d5b8fe",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,9 +15,16 @@
     "Building_01_s01.mesh": {
       "ver": "1.0.1",
       "uuid": "a57a8619-4a0c-4fe2-9b27-194340063d4a",
-      "verts": 446,
+      "verts": 536,
       "tris": 254,
-      "submeshes": 4,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -5.59999990463257,
         "y": -9.05876618162438e-7,
@@ -34,9 +41,16 @@
     "Building_01_s02.mesh": {
       "ver": "1.0.1",
       "uuid": "771aee03-810f-4482-94c7-bd110aeb6f72",
-      "verts": 438,
+      "verts": 458,
       "tris": 218,
-      "submeshes": 3,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -2.67278170585632,
         "y": -0.747257828712463,
@@ -53,9 +67,16 @@
     "Building_01_s03.mesh": {
       "ver": "1.0.1",
       "uuid": "5ab6822b-677d-4486-98ce-67d13242bdbf",
-      "verts": 429,
+      "verts": 498,
       "tris": 240,
-      "submeshes": 3,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -5.59999990463257,
         "y": 1.00000074887419e-9,
@@ -70,7 +91,7 @@
       "subMetas": {}
     },
     "Building_01.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "6e847fc5-7b60-4cae-8919-8fa23d64e40c",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -187,32 +208,11 @@
       "name": "Building_01.prefab",
       "subMetas": {}
     },
-    "Building_01_Frame.mtl": {
+    "Building_01_s03.mtl": {
       "ver": "1.0.3",
-      "uuid": "b2682cff-6c96-4061-84e5-f5165fcb3642",
+      "uuid": "044e5ad8-a6e5-4c49-863b-97e8be90527c",
       "dataAsSubAsset": null,
-      "name": "Building_01_Frame.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Walls.mtl": {
-      "ver": "1.0.3",
-      "uuid": "1019b6d6-5d0e-407a-b8d0-bad1952f5202",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Walls.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Door.mtl": {
-      "ver": "1.0.3",
-      "uuid": "8e460bf6-3c7c-41d4-8748-7d21454196f0",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Door.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Windows.mtl": {
-      "ver": "1.0.3",
-      "uuid": "581c2644-19bf-48f7-8433-27a5d10359a8",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Windows.mtl",
+      "name": "Building_01_s03.mtl",
       "subMetas": {}
     }
   }

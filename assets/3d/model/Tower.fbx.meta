@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "e7c7676e-1097-4912-bcd0-8e3a06397076",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,24 +15,31 @@
     "Tower_2.mesh": {
       "ver": "1.0.1",
       "uuid": "92badf6b-6775-4d3d-91ef-da7ee3ce525a",
-      "verts": 226,
+      "verts": 220,
       "tris": 130,
-      "submeshes": 4,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -5.59999990463257,
-        "y": 0.349999994039536,
+        "y": -0.00000409106633014744,
         "z": -4
       },
       "maxPos": {
         "x": 5.59999990463257,
-        "y": 18.6773872375488,
+        "y": 18.3273830413818,
         "z": 4
       },
       "name": "Tower_2.mesh",
       "subMetas": {}
     },
     "Tower.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "46f08ec2-092e-4f27-b530-678173793f95",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -149,32 +156,11 @@
       "name": "Tower.prefab",
       "subMetas": {}
     },
-    "Tower_Aircondition.mtl": {
+    "Tower.mtl": {
       "ver": "1.0.3",
-      "uuid": "9c334397-a408-4083-9838-810e3fbee08c",
+      "uuid": "6c5b1f65-afc4-4eef-9420-c2fa12a4f9c1",
       "dataAsSubAsset": null,
-      "name": "Tower_Aircondition.mtl",
-      "subMetas": {}
-    },
-    "Tower_Walls.mtl": {
-      "ver": "1.0.3",
-      "uuid": "56dfaefa-eb6d-4fb4-9711-f92449725739",
-      "dataAsSubAsset": null,
-      "name": "Tower_Walls.mtl",
-      "subMetas": {}
-    },
-    "Tower_Glass.mtl": {
-      "ver": "1.0.3",
-      "uuid": "90464ef7-8af9-4f20-8bef-0b171ccd7922",
-      "dataAsSubAsset": null,
-      "name": "Tower_Glass.mtl",
-      "subMetas": {}
-    },
-    "Tower_Roof.mtl": {
-      "ver": "1.0.3",
-      "uuid": "d1e0589c-1021-4cf2-81d1-e01f6147846a",
-      "dataAsSubAsset": null,
-      "name": "Tower_Roof.mtl",
+      "name": "Tower.mtl",
       "subMetas": {}
     }
   }

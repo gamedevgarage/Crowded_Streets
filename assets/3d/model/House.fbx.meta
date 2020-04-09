@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "01520f74-d68a-41df-a20e-c8e601bd9737",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -17,7 +17,14 @@
       "uuid": "518a5f38-3bec-47f6-9daf-fbded61d7a37",
       "verts": 132,
       "tris": 80,
-      "submeshes": 5,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -4.1191349029541,
         "y": 2.9999998520638e-16,
@@ -32,7 +39,7 @@
       "subMetas": {}
     },
     "House.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "e3cc2da1-167c-49dc-be2a-1a638fe3827a",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -149,39 +156,11 @@
       "name": "House.prefab",
       "subMetas": {}
     },
-    "House_Frame.mtl": {
+    "House.mtl": {
       "ver": "1.0.3",
-      "uuid": "5a05d784-983d-493d-8235-adb46f149e13",
+      "uuid": "30e85157-5fbe-4b7b-8730-f22952e27d1d",
       "dataAsSubAsset": null,
-      "name": "House_Frame.mtl",
-      "subMetas": {}
-    },
-    "House_Glass.mtl": {
-      "ver": "1.0.3",
-      "uuid": "fed3a8ff-958e-453e-8940-73f6d5406e34",
-      "dataAsSubAsset": null,
-      "name": "House_Glass.mtl",
-      "subMetas": {}
-    },
-    "House_Roof.mtl": {
-      "ver": "1.0.3",
-      "uuid": "0b24bd89-0108-496f-bcdb-ff7107c6f4ad",
-      "dataAsSubAsset": null,
-      "name": "House_Roof.mtl",
-      "subMetas": {}
-    },
-    "House_Wall.mtl": {
-      "ver": "1.0.3",
-      "uuid": "54f6f80e-8491-4a7b-8815-fd6aaadf7be7",
-      "dataAsSubAsset": null,
-      "name": "House_Wall.mtl",
-      "subMetas": {}
-    },
-    "House_Door.mtl": {
-      "ver": "1.0.3",
-      "uuid": "bb9c7557-8417-40f8-84bd-83d79ed67691",
-      "dataAsSubAsset": null,
-      "name": "House_Door.mtl",
+      "name": "House.mtl",
       "subMetas": {}
     }
   }

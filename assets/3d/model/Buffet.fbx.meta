@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "c8706e75-cf3a-4c8f-a613-90d2cd17fb27",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,9 +15,16 @@
     "Buffet_2.mesh": {
       "ver": "1.0.1",
       "uuid": "2fab54da-3a1d-4fd5-b9b9-6121dddec837",
-      "verts": 102,
-      "tris": 60,
-      "submeshes": 3,
+      "verts": 675,
+      "tris": 457,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -2.25049114227295,
         "y": 0,
@@ -25,33 +32,14 @@
       },
       "maxPos": {
         "x": 2.24950885772705,
-        "y": 3.39999985694885,
+        "y": 3.63045382499695,
         "z": 1.86637473106384
       },
       "name": "Buffet_2.mesh",
       "subMetas": {}
     },
-    "Buffet_Text.mesh": {
-      "ver": "1.0.1",
-      "uuid": "31a36e5b-13d3-4838-adb7-81997d764c2f",
-      "verts": 832,
-      "tris": 652,
-      "submeshes": 1,
-      "minPos": {
-        "x": -1.90300285816193,
-        "y": -0.0230224598199129,
-        "z": -0.140000000596046
-      },
-      "maxPos": {
-        "x": 1.90300285816193,
-        "y": 0.849584937095642,
-        "z": 0
-      },
-      "name": "Buffet_Text.mesh",
-      "subMetas": {}
-    },
     "Buffet.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "dc0eb606-babd-4080-9fc0-b2b0a5907418",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -168,25 +156,11 @@
       "name": "Buffet.prefab",
       "subMetas": {}
     },
-    "Buffet_Wall.mtl": {
+    "Buffet.mtl": {
       "ver": "1.0.3",
-      "uuid": "38d6b474-0988-4208-a402-a984d6d6133b",
+      "uuid": "c3f791d0-3862-4b49-a3c6-ac263f25ff7d",
       "dataAsSubAsset": null,
-      "name": "Buffet_Wall.mtl",
-      "subMetas": {}
-    },
-    "Buffet_Top.mtl": {
-      "ver": "1.0.3",
-      "uuid": "aebd4445-0f18-4b7f-83dc-ced5b2dbb3f5",
-      "dataAsSubAsset": null,
-      "name": "Buffet_Top.mtl",
-      "subMetas": {}
-    },
-    "Buffet_Glass.mtl": {
-      "ver": "1.0.3",
-      "uuid": "fbc54038-3697-4e09-b243-c5a3be408bf8",
-      "dataAsSubAsset": null,
-      "name": "Buffet_Glass.mtl",
+      "name": "Buffet.mtl",
       "subMetas": {}
     }
   }

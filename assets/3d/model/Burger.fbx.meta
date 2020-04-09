@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "0f7efdbf-efc7-4c82-9514-d372308a52eb",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -15,9 +15,16 @@
     "Burger_2.mesh": {
       "ver": "1.0.1",
       "uuid": "7303b847-9cdc-424d-b243-b1062a6b6426",
-      "verts": 284,
-      "tris": 170,
-      "submeshes": 4,
+      "verts": 1704,
+      "tris": 1054,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -5.25,
         "y": 0,
@@ -26,32 +33,13 @@
       "maxPos": {
         "x": 5.25,
         "y": 3.5,
-        "z": 3.28256821632385
+        "z": 3.42357754707336
       },
       "name": "Burger_2.mesh",
       "subMetas": {}
     },
-    "Burger_Text.mesh": {
-      "ver": "1.0.1",
-      "uuid": "e965b9a7-145b-4b82-ab73-6246d4e493ff",
-      "verts": 1336,
-      "tris": 884,
-      "submeshes": 1,
-      "minPos": {
-        "x": -1.07599115371704,
-        "y": -0.0134130856022239,
-        "z": -0.140000000596046
-      },
-      "maxPos": {
-        "x": 8.72598648071289,
-        "y": 0.494321286678314,
-        "z": 0
-      },
-      "name": "Burger_Text.mesh",
-      "subMetas": {}
-    },
     "Burger.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "30c3c62e-cbbf-4bbf-b480-803d76418fbf",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
@@ -168,39 +156,11 @@
       "name": "Burger.prefab",
       "subMetas": {}
     },
-    "Burger_Aircondition.mtl": {
+    "Burger.mtl": {
       "ver": "1.0.3",
-      "uuid": "e9157066-20ce-4ed3-9f2b-ed89bf3b8334",
+      "uuid": "94def8f0-28e5-475b-bfa0-f1ce823a4dc7",
       "dataAsSubAsset": null,
-      "name": "Burger_Aircondition.mtl",
-      "subMetas": {}
-    },
-    "Burger_Top.mtl": {
-      "ver": "1.0.3",
-      "uuid": "c0940588-2edc-4a60-abd0-60681c950326",
-      "dataAsSubAsset": null,
-      "name": "Burger_Top.mtl",
-      "subMetas": {}
-    },
-    "Burger_Glass.mtl": {
-      "ver": "1.0.3",
-      "uuid": "8154f172-2876-471f-9858-0164a46860f5",
-      "dataAsSubAsset": null,
-      "name": "Burger_Glass.mtl",
-      "subMetas": {}
-    },
-    "Burger_Walls.mtl": {
-      "ver": "1.0.3",
-      "uuid": "33dc76ec-03ad-4390-82c2-e60646007100",
-      "dataAsSubAsset": null,
-      "name": "Burger_Walls.mtl",
-      "subMetas": {}
-    },
-    "Burger_Text.mtl": {
-      "ver": "1.0.3",
-      "uuid": "95306754-69d2-42ad-9f93-f76836c27a0c",
-      "dataAsSubAsset": null,
-      "name": "Burger_Text.mtl",
+      "name": "Burger.mtl",
       "subMetas": {}
     }
   }

@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "c0de9338-640c-4421-84d1-e27e1bfa42be",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -18,6 +18,13 @@
       "verts": 278,
       "tris": 144,
       "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -0.484660983085632,
         "y": 0.0000191201561392518,
@@ -32,7 +39,7 @@
       "subMetas": {}
     },
     "Kalekter.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "2c7ca65e-b3cd-420a-a23d-61680703406b",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,

@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Burger",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "128b0c4e-fa74-4eb5-b27e-059ad79142b0"
+        }
+      }
+    }
+  }
+}

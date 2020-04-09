@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Kalekter_Mavi",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "diffuseColor": {
+          "__type__": "cc.Color",
+          "r": 146,
+          "g": 211,
+          "b": 255,
+          "a": 255
+        }
+      },
+      "defines": {}
+    },
+    "1": {
+      "props": {},
+      "defines": {}
+    }
+  }
+}

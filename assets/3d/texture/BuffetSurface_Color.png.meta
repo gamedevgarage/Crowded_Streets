@@ -1,20 +1,20 @@
 {
   "ver": "2.3.4",
-  "uuid": "82d5fe7e-5f91-43bd-a9ad-0c72fb0e34ad",
+  "uuid": "e2929c02-7753-4f6e-a1a7-0786f003128e",
   "type": "sprite",
   "wrapMode": "clamp",
-  "filterMode": "point",
+  "filterMode": "bilinear",
   "premultiplyAlpha": false,
-  "genMipmaps": true,
+  "genMipmaps": false,
   "packable": true,
   "width": 256,
   "height": 256,
   "platformSettings": {},
   "subMetas": {
-    "Market.1Surface_Color": {
+    "BuffetSurface_Color": {
       "ver": "1.0.4",
-      "uuid": "bc0ae591-4c32-40e8-865f-c7dd2f93cf7e",
-      "rawTextureUuid": "82d5fe7e-5f91-43bd-a9ad-0c72fb0e34ad",
+      "uuid": "eddbc9c3-1480-4369-bbc2-71ea27ecba51",
+      "rawTextureUuid": "e2929c02-7753-4f6e-a1a7-0786f003128e",
       "trimType": "custom",
       "trimThreshold": 1,
       "rotated": false,

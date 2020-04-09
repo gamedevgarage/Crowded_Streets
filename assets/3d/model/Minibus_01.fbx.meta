@@ -1,5 +1,5 @@
 {
-  "ver": "1.0.14",
+  "ver": "1.0.15",
   "uuid": "6cd47985-81c9-46fe-9e9c-27a2dbeb3dc1",
   "scaleFactor": 1,
   "boneCount": 0,
@@ -18,6 +18,13 @@
       "verts": 470,
       "tris": 284,
       "submeshes": 1,
+      "attributes": [
+        [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ]
+      ],
       "minPos": {
         "x": -0.899999976158142,
         "y": 0.012235869653523,
@@ -32,7 +39,7 @@
       "subMetas": {}
     },
     "Minibus_01.prefab": {
-      "ver": "1.2.6",
+      "ver": "1.2.7",
       "uuid": "13afc703-3f40-4df5-bcc0-5678e1b37e07",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
