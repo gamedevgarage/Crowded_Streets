@@ -33,6 +33,13 @@ cc.Class({
 
         Sneeze_SFX_Control:require("audio_action"),
 
+        Model:cc.MeshRenderer,
+
+        Default_Material:cc.Material,
+
+        Infected_Material:cc.Material,
+
+
     },
 
     __preload(){
@@ -56,10 +63,10 @@ cc.Class({
 
         this.Walk_Target = null;
         this.Walk_Target_Radius = 50;
-        this.Walk_Force = 3000;
+        this.Walk_Force = 6000;
         this.Rotation_Speed = 2.5;
 
-        this.Walk_Home_Force = 5000;
+        this.Walk_Home_Force = 10000;
         this.Walk_Home_Rotation_Speed = 4;
 
         this.Target_Distance = 400;
@@ -102,7 +109,7 @@ cc.Class({
 
                 walk_vec = this.Walk_Target.sub(cur_pos);
                 walk_vec.normalizeSelf();
-                walk_vec.mulSelf(this.Walk_Force);
+                walk_vec.mulSelf(this.Walk_Force*(dt*60));
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
                 this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Rotation_Speed);
@@ -114,7 +121,7 @@ cc.Class({
 
                 walk_vec = this.Walk_Target.sub(cur_pos);
                 walk_vec.normalizeSelf();
-                walk_vec.mulSelf(this.Walk_Home_Force);
+                walk_vec.mulSelf(this.Walk_Home_Force*(dt*60));
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
                 this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Walk_Home_Rotation_Speed);
@@ -337,7 +344,8 @@ cc.Class({
             if(internal || !this.Infected){
                 this.Infected = true;
                 this.Start_Sneeze();
-                this.node.color = new cc.Color(255, 25, 25);
+                // this.node.color = new cc.Color(255, 25, 25);
+                this.Model.setMaterial(0,this.Infected_Material);
 
                 if(!internal){
                     smsg.Game_Control.Citizen_Infected(1);
@@ -347,7 +355,8 @@ cc.Class({
             if(this.Infected){
                 this.Infected = false;
                 this.Stop_Sneeze();
-                this.node.color = new cc.Color(255, 255, 255);
+                // this.node.color = new cc.Color(255, 255, 255);
+                this.Model.setMaterial(0,this.Default_Material);
             }
         }
     },

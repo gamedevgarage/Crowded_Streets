@@ -1,6 +1,6 @@
 {
   "ver": "1.0.14",
-  "uuid": "eedbf2bb-76e0-4d69-a906-a901e2d5b8fe",
+  "uuid": "c0de9338-640c-4421-84d1-e27e1bfa42be",
   "scaleFactor": 1,
   "boneCount": 0,
   "precomputeJointMatrix": false,
@@ -8,70 +8,32 @@
   "subMetas": {
     "buffer.bin": {
       "ver": "1.0.0",
-      "uuid": "ac658bda-3b4c-45d5-9866-205630f8c7bf",
+      "uuid": "2db7bedc-cd00-46a4-893c-65915b3a3b23",
       "name": "buffer.bin",
       "subMetas": {}
     },
-    "Building_01_s01.mesh": {
+    "Kalekter_2.mesh": {
       "ver": "1.0.1",
-      "uuid": "a57a8619-4a0c-4fe2-9b27-194340063d4a",
-      "verts": 446,
-      "tris": 254,
-      "submeshes": 4,
+      "uuid": "768351e7-d43d-451c-a684-b9934c91937b",
+      "verts": 278,
+      "tris": 144,
+      "submeshes": 1,
       "minPos": {
-        "x": -5.59999990463257,
-        "y": -9.05876618162438e-7,
-        "z": -4
+        "x": -0.484660983085632,
+        "y": 0.0000191201561392518,
+        "z": -0.238499104976654
       },
       "maxPos": {
-        "x": 5.59999990463257,
-        "y": 3,
-        "z": 4
+        "x": 0.482084214687347,
+        "y": 1.88967549800873,
+        "z": 0.238459378480911
       },
-      "name": "Building_01_s01.mesh",
+      "name": "Kalekter_2.mesh",
       "subMetas": {}
     },
-    "Building_01_s02.mesh": {
-      "ver": "1.0.1",
-      "uuid": "771aee03-810f-4482-94c7-bd110aeb6f72",
-      "verts": 438,
-      "tris": 218,
-      "submeshes": 3,
-      "minPos": {
-        "x": -2.67278170585632,
-        "y": -0.747257828712463,
-        "z": -2.44929344047254e-16
-      },
-      "maxPos": {
-        "x": 5.32721853256226,
-        "y": 2.25274205207825,
-        "z": 11.1999998092651
-      },
-      "name": "Building_01_s02.mesh",
-      "subMetas": {}
-    },
-    "Building_01_s03.mesh": {
-      "ver": "1.0.1",
-      "uuid": "5ab6822b-677d-4486-98ce-67d13242bdbf",
-      "verts": 429,
-      "tris": 240,
-      "submeshes": 3,
-      "minPos": {
-        "x": -5.59999990463257,
-        "y": 1.00000074887419e-9,
-        "z": -4
-      },
-      "maxPos": {
-        "x": 5.59999990463257,
-        "y": 3,
-        "z": 4
-      },
-      "name": "Building_01_s03.mesh",
-      "subMetas": {}
-    },
-    "Building_01.prefab": {
+    "Kalekter.prefab": {
       "ver": "1.2.6",
-      "uuid": "6e847fc5-7b60-4cae-8919-8fa23d64e40c",
+      "uuid": "2c7ca65e-b3cd-420a-a23d-61680703406b",
       "optimizationPolicy": "AUTO",
       "asyncLoadAssets": false,
       "readonly": true,
@@ -184,35 +146,14 @@
           "fileId": "d7118yAG5lKybkFOAh8koPL"
         }
       ],
-      "name": "Building_01.prefab",
+      "name": "Kalekter.prefab",
       "subMetas": {}
     },
-    "Building_01_Frame.mtl": {
+    "Kalekter.mtl": {
       "ver": "1.0.3",
-      "uuid": "b2682cff-6c96-4061-84e5-f5165fcb3642",
+      "uuid": "37b16a49-84f5-45b1-96c5-7ef23723dc02",
       "dataAsSubAsset": null,
-      "name": "Building_01_Frame.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Walls.mtl": {
-      "ver": "1.0.3",
-      "uuid": "1019b6d6-5d0e-407a-b8d0-bad1952f5202",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Walls.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Door.mtl": {
-      "ver": "1.0.3",
-      "uuid": "8e460bf6-3c7c-41d4-8748-7d21454196f0",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Door.mtl",
-      "subMetas": {}
-    },
-    "Building_01_Windows.mtl": {
-      "ver": "1.0.3",
-      "uuid": "581c2644-19bf-48f7-8433-27a5d10359a8",
-      "dataAsSubAsset": null,
-      "name": "Building_01_Windows.mtl",
+      "name": "Kalekter.mtl",
       "subMetas": {}
     }
   }

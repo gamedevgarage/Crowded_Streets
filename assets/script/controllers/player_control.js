@@ -26,7 +26,7 @@ cc.Class({
 
         this.Walk_Vector = cc.v2();
         this.Walk_Angle = 0;
-        this.Walk_Speed = 100;
+        this.Walk_Speed = 200;
 
         this.Rigid_Body = this.node.getComponent(cc.RigidBody);
 
@@ -173,7 +173,7 @@ cc.Class({
     update (dt) {
 
         this.node.angle = this.Walk_Angle;//cc.misc.lerp(this.node.angle,this.Walk_Angle,0.3);;
-        this.Rigid_Body.applyForceToCenter(this.Walk_Vector,true);
+        this.Rigid_Body.applyForceToCenter(this.Walk_Vector.mul(dt*60),true);
 
         // Warn
         this.Warn_Update_Battery(dt);
