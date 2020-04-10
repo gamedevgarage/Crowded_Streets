@@ -8,6 +8,8 @@ cc.Class({
 
     properties: {
 
+        Sprite:cc.Sprite,
+
     },
 
     __preload(){
@@ -20,7 +22,7 @@ cc.Class({
 
     onLoad(){
         this.Render_Texture = new cc.RenderTexture();
-        this.Render_Texture.initWithSize(cc.visibleRect.width, cc.visibleRect.height, cc.gfx.RB_FMT_S8);
+        this.Render_Texture.initWithSize(cc.visibleRect.width, cc.visibleRect.height, cc.gfx.RB_FMT_D16);
     },
 
     Share_Screenshot(){

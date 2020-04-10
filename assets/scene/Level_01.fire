@@ -152,7 +152,7 @@
       "__id__": 2
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 4
@@ -204,7 +204,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "7fczqltvdBb4vNf7IXYXtU"
+    "_id": "5dSobGXmlLybvuoSZi6jZe"
   },
   {
     "__type__": "cc.Camera",
@@ -240,7 +240,7 @@
     },
     "_renderStages": 1,
     "_alignWithScreen": true,
-    "_id": "95SE7p/zNNP57av95UGMqX"
+    "_id": "7bmNzEmtFB77vFJdKP/gcZ"
   },
   {
     "__type__": "cc.Node",
@@ -286,10 +286,10 @@
         310.244,
         -51.188,
         0,
-        0.25881904510252074,
+        0.29336464155956216,
         0,
         0,
-        0.9659258262890683,
+        0.9560006208589144,
         1,
         1,
         1
@@ -297,7 +297,7 @@
     },
     "_eulerAngles": {
       "__type__": "cc.Vec3",
-      "x": 30,
+      "x": 34.119,
       "y": 0,
       "z": 0
     },
@@ -346,8 +346,8 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
-        1843.234,
+        50,
+        1784.724,
         0,
         0,
         0,
@@ -455,7 +455,7 @@
       "array": [
         0,
         0,
-        553.3902330182564,
+        623.5382907247958,
         0,
         0,
         0,
@@ -682,7 +682,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_is3DNode": false,
+    "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
     "_id": "04aWmdqCBGZL0AZXYQjvic"
@@ -765,7 +765,7 @@
     "Spawn_Rate": 32,
     "Infected_Count": 10,
     "Sneeze_Rate": 10,
-    "Day_Duration": 60,
+    "Day_Duration": 10,
     "Difficulty_Step": {
       "__id__": 16
     },
@@ -7547,8 +7547,8 @@
         0,
         0,
         0,
-        0.9683309183759532,
-        0.2496702475610242,
+        0,
+        1,
         1,
         1,
         1
@@ -7558,7 +7558,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 151.084
+      "z": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7674,9 +7674,9 @@
         0,
         0,
         0,
-        -0.9535619993077836,
         0,
-        0.3011968019022487,
+        0,
+        1,
         1,
         1,
         1
@@ -7685,7 +7685,7 @@
     "_eulerAngles": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -144.941,
+      "y": 0,
       "z": 0
     },
     "_skewX": 0,
@@ -7773,7 +7773,7 @@
     },
     "_enabled": true,
     "tag": 0,
-    "_density": 1,
+    "_density": 0.3,
     "_sensor": false,
     "_friction": 0.2,
     "_restitution": 0,
@@ -8016,9 +8016,9 @@
     "_mesh": {
       "__uuid__": "e083b3ea-4a54-4f76-99aa-4b46c9210f09"
     },
-    "_receiveShadows": false,
-    "_shadowCastingMode": 0,
-    "_enableAutoBatch": false,
+    "_receiveShadows": true,
+    "_shadowCastingMode": 1,
+    "_enableAutoBatch": true,
     "textures": [],
     "_id": "c9maTmeONOJInOmCJvgOEM"
   },
@@ -8078,7 +8078,7 @@
     },
     "_enabled": true,
     "tag": 0,
-    "_density": 1,
+    "_density": 0.3,
     "_sensor": false,
     "_friction": 0.2,
     "_restitution": 0,
@@ -8164,8 +8164,8 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": true,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 3,
+    "groupIndex": 3,
     "_id": "03YL8tnVpJxZ/NyQ7FB219"
   },
   {
@@ -8185,8 +8185,8 @@
       "__uuid__": "a1ef2fc9-9c57-418a-8f69-6bed9a7a0e7f"
     },
     "_receiveShadows": true,
-    "_shadowCastingMode": 0,
-    "_enableAutoBatch": false,
+    "_shadowCastingMode": 1,
+    "_enableAutoBatch": true,
     "textures": [],
     "_id": "acZm1PnZFHkLdXjrofVJ2Z"
   },
