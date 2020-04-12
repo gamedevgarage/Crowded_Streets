@@ -31,6 +31,10 @@ cc.Class({
         smsg.Main_Game_Control.Load_Home_Screen();
     },
 
+    Show_Rewarded_Video(){
+        smsg.Monetization_Control.Show_Rewarded_Video();
+    },
+
     Share_Game_Over_Screen(){
         smsg.Main_Game_Control.Share_Screenshot();
     },

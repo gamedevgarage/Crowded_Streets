@@ -18,6 +18,14 @@ cc.Class({
             type:INPUT_TYPE,
         },
 
+        Joystick_Ball:{
+            default:null,
+            type:cc.Node,
+            visible(){
+                return this.Input_Type === INPUT_TYPE.Joystick;
+            },
+        },
+
     },
 
     onLoad () {
@@ -49,10 +57,6 @@ cc.Class({
         this.Touch_End();
     },
 
-    onDestroy(){
-        this.Touch_End();
-    },
-
     Button_Touch_Start(event){
         smsg.Input_Control.Button_Touch_Start(this.Input_Channel);
     },
@@ -64,7 +68,8 @@ cc.Class({
     Joystick_Touch_Start(event){
         let touch_pos = event.getLocation();
         let local_touch_pos = this.node.convertToNodeSpaceAR(touch_pos);
-
+        this.Set_Joystick_Ball_Position(local_touch_pos);
+        
         // out of dead zone
         if( this.Check_Dead_Zone(local_touch_pos) ){
             this.Limit_Joystick_Vector(local_touch_pos);
@@ -78,6 +83,7 @@ cc.Class({
         this.Joystick_Down = false;
         this.Joystick_Vector = cc.Vec2.ZERO;
         smsg.Input_Control.Joystick_Touch_End(this.Input_Channel);
+        this.Set_Joystick_Ball_Position(cc.Vec2.ZERO);
     },
 
     Joystick_Touch_Move(event){
@@ -86,7 +92,7 @@ cc.Class({
 
         let touch_pos = touch.getLocation();
         let local_touch_pos = this.node.convertToNodeSpaceAR(touch_pos);
-
+        this.Set_Joystick_Ball_Position(local_touch_pos);
 
         if( this.Check_Dead_Zone(local_touch_pos) ){
 
@@ -101,7 +107,6 @@ cc.Class({
         }else if(this.Joystick_Down === true){ // call end
             this.Joystick_Touch_End();
         }
-
     },
 
     Check_Dead_Zone(local_touch_pos){
@@ -119,6 +124,15 @@ cc.Class({
             joystick_vector.normalizeSelf();
             joystick_vector.mulSelf(input_mag);
         }
+    },
+
+    Set_Joystick_Ball_Position(joystick_vector){  
+        let pos = joystick_vector;
+        let input_mag = joystick_vector.mag();
+        if(input_mag > this.Joystick_Max){ // max
+            pos = joystick_vector.mul(this.Joystick_Max/input_mag);
+        }
+        this.Joystick_Ball.setPosition(pos);
     },
 
     Touch_End(){ // called on disable
