@@ -262,7 +262,8 @@ cc.Class({
 
     // UI Updates -----------------------------------------
     Update_Infected_Indicator(){
-        smsg.Infected_Indicator.getComponent(cc.Label).string = this.Infected_Count + "/" + this.Total_Citizens;
+        // smsg.Infected_Indicator.getComponent(cc.Label).string = this.Infected_Count + "/" + this.Total_Citizens;
+        smsg.Infected_Indicator.Set_Indicator(this.Infected_Count,this.Total_Citizens);
     },
 
     Update_Street_Indicator(){
@@ -270,7 +271,8 @@ cc.Class({
     },
 
     Update_Day_Indicator(){
-        smsg.Day_Indicator.getComponent(cc.Label).string = (this.Today+1)+"("+Math.floor( (this.Day_Time/this.Day_Duration)*100)+"%)";
+        // smsg.Day_Indicator.getComponent(cc.Label).string = (this.Today+1)+"("+Math.floor( (this.Day_Time/this.Day_Duration)*100)+"%)";
+        smsg.Day_Indicator.Set_Indicator( this.Today+1 , this.Day_Time/this.Day_Duration );
     },
 
     Update_Gold_Indicator(){

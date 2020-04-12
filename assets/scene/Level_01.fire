@@ -20,10 +20,10 @@
         "__id__": 13
       },
       {
-        "__id__": 291
+        "__id__": 290
       },
       {
-        "__id__": 293
+        "__id__": 292
       }
     ],
     "_active": false,
@@ -455,7 +455,7 @@
       "array": [
         0,
         0,
-        623.5382907247958,
+        555.1222838258252,
         0,
         0,
         0,
@@ -636,7 +636,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 290
+        "__id__": 289
       }
     ],
     "_prefab": null,
@@ -8223,16 +8223,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 287
-      },
-      {
         "__id__": 255
       },
       {
-        "__id__": 288
+        "__id__": 287
       },
       {
-        "__id__": 289
+        "__id__": 288
       }
     ],
     "_prefab": null,
@@ -9663,38 +9660,6 @@
     "_id": "77WoxXlwxF/ZmFzZEX8KHn"
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 243
-    },
-    "_enabled": false,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "d985e7c8-f0ef-409b-be8d-0a94a9433b78"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": "042SZCy4RIFKGqv4fBds4i"
-  },
-  {
     "__type__": "cc.PhysicsCircleCollider",
     "_name": "",
     "_objFlags": 0,
@@ -9766,7 +9731,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 292
+        "__id__": 291
       }
     ],
     "_prefab": null,
@@ -9822,7 +9787,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 291
+      "__id__": 290
     },
     "_enabled": true,
     "_type": 3,
@@ -9855,7 +9820,7 @@
     },
     "_children": [
       {
-        "__id__": 294
+        "__id__": 293
       }
     ],
     "_active": true,
@@ -9913,13 +9878,13 @@
     "_name": "Sun Light",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 293
+      "__id__": 292
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 295
+        "__id__": 294
       }
     ],
     "_prefab": null,
@@ -9975,7 +9940,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 294
+      "__id__": 293
     },
     "_enabled": true,
     "_type": 0,
