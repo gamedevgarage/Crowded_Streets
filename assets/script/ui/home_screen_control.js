@@ -1,11 +1,12 @@
 
+var AUDIO_LAYERS = require("audio_layers");
 
 cc.Class({
     extends: cc.Component,
 
-    editor : CC_EDITOR && {
-        executeInEditMode : true,
-    },
+    // editor : CC_EDITOR && {
+    //     executeInEditMode : true,
+    // },
 
     properties: {
 
@@ -15,9 +16,9 @@ cc.Class({
 
         Gray_Material:cc.Material,
 
-        SFX_Button:cc.Node,
+        SFX_Button:cc.Sprite,
         
-        Music_Button:cc.Node,
+        Music_Button:cc.Sprite,
 
 
     },
@@ -55,6 +56,20 @@ cc.Class({
             }
         }
 
+    },
+
+    onEnable(){
+        if(smsg.Audio_Control.Layer_Volume[AUDIO_LAYERS.Default]){
+            this.SFX_Button.setMaterial(0,this.Std_Material);
+        }else{
+            this.SFX_Button.setMaterial(0,this.Gray_Material);
+        }
+
+        if(smsg.Audio_Control.Layer_Volume[AUDIO_LAYERS.Background_Music]){
+            this.Music_Button.setMaterial(0,this.Std_Material);
+        }else{
+            this.Music_Button.setMaterial(0,this.Gray_Material);
+        }
     },
 
     Toggle_SFX(){

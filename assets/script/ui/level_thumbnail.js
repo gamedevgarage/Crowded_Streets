@@ -33,12 +33,12 @@ cc.Class({
             let sprite = this.node.getComponent(cc.Sprite);
             smsg.Home_Screen_Control && sprite.setMaterial(0,smsg.Home_Screen_Control.Std_Material);
             // Register touch event
-            this.node.on(cc.Node.EventType.TOUCH_START, this.Load_Level, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.Load_Level, this);
         }else{
             let sprite = this.node.getComponent(cc.Sprite);
             smsg.Home_Screen_Control && sprite.setMaterial(0,smsg.Home_Screen_Control.Gray_Material);
             // Remove touch event
-            this.node.off(cc.Node.EventType.TOUCH_START, this.Load_Level, this);
+            this.node.off(cc.Node.EventType.TOUCH_END, this.Load_Level, this);
         }
     },
 
@@ -52,7 +52,7 @@ cc.Class({
     },
 
     onDestroy(){
-        this.node.off(cc.Node.EventType.TOUCH_START, this.Load_Level, this);
+        this.node.off(cc.Node.EventType.TOUCH_END, this.Load_Level, this);
     },
 
     
