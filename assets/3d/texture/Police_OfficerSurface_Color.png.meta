@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "961fc5a9-624e-4c99-9ee6-aefcfe6e6ad3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 256,
+  "height": 256,
+  "platformSettings": {},
+  "subMetas": {
+    "Police_OfficerSurface_Color": {
+      "ver": "1.0.4",
+      "uuid": "8fcaa9e1-d19c-4de5-ab16-8022d9b41532",
+      "rawTextureUuid": "961fc5a9-624e-4c99-9ee6-aefcfe6e6ad3",
+      "trimType": "custom",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 256,
+      "height": 256,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

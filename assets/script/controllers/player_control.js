@@ -11,6 +11,11 @@ cc.Class({
         Whistle_SFX:require("audio_action"),
         Warn_SFX:require("audio_action"),
         Siren_SFX:require("audio_action"),
+
+        Model_Root:cc.SkeletonAnimation,
+
+        Idle_Animation:cc.SkeletonAnimationClip,
+        Walk_Animation:cc.SkeletonAnimationClip,
     },
 
     __preload(){
@@ -70,9 +75,11 @@ cc.Class({
     Joystick_Touch_On(joystick_vector){
         this.Walk_Vector = joystick_vector.mul(this.Walk_Speed);
         this.Walk_Angle = -cc.misc.radiansToDegrees(this.Walk_Vector.signAngle(cc.Vec2.UP));
+        this.Play_Animation(this.Walk_Animation);
     },
     Joystick_Touch_Off(){
         this.Walk_Vector = cc.v2();
+        this.Play_Animation(this.Idle_Animation);
     },
 
     // WHISTLE
@@ -196,6 +203,14 @@ cc.Class({
         this.unschedule(this.Stop_Siren);
         this.unschedule(this.Enable_Siren);
         smsg.Siren_Cooldown_Indicator.sprite_effect.Set_Wipe(-1);
+
+    },
+
+    Play_Animation(clip){
+
+        if(this.Model_Root.currentClip !== clip){
+            this.Model_Root.play(clip.name);
+        }
 
     },
 
