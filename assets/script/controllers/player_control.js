@@ -16,6 +16,9 @@ cc.Class({
 
         Idle_Animation:cc.SkeletonAnimationClip,
         Walk_Animation:cc.SkeletonAnimationClip,
+        Whistle_Animation:cc.SkeletonAnimationClip,
+        Warn_Animation:cc.SkeletonAnimationClip,
+        Siren_Lamp:cc.Node,
     },
 
     __preload(){
@@ -94,6 +97,7 @@ cc.Class({
             this.scheduleOnce(this.Stop_Whistle,this.Whistle_Duration);
             this.scheduleOnce(this.Enable_Whistle,this.Whistle_Cooldown);
             smsg.Whistle_Cooldown_Indicator.sprite_effect.Start_Wipe_Animation(this.Whistle_Cooldown,0,-1);
+            this.Play_Animation(this.Whistle_Animation,false,false,true);
         }
     },
     Stop_Whistle(){       
@@ -114,6 +118,15 @@ cc.Class({
             this.Warn_SFX.node.active = true;
             this.Warn_Battery -= this.Warn_Battery_Consume_Rate/4;
             this.Warn_Start_Consume_Battery();
+            this.Play_Animation(this.Warn_Animation,false,true,true);
+        }
+    },
+    Warn_Touch_End(){
+        this.Warn_Range.active=false;
+        this.Warn_SFX.node.active = false;
+        if(!this.Warn_Recharging){
+            this.Warn_Stop_Consume_Battery();
+            this.Stop_Animation(this.Warn_Animation);
         }
     },
     Warn_Start_Consume_Battery(){
@@ -146,13 +159,6 @@ cc.Class({
             this.Warn_Stop_Recharge();
         }
     },  
-    Warn_Touch_End(){
-        this.Warn_Range.active=false;
-        this.Warn_SFX.node.active = false;
-        if(!this.Warn_Recharging){
-            this.Warn_Stop_Consume_Battery();
-        }
-    },
 
     // SIREN
     Siren_Touch_Start(){
@@ -163,11 +169,13 @@ cc.Class({
             this.scheduleOnce(this.Stop_Siren,this.Siren_Duration);
             this.scheduleOnce(this.Enable_Siren,this.Siren_Cooldown);
             smsg.Siren_Cooldown_Indicator.sprite_effect.Start_Wipe_Animation(this.Siren_Cooldown,0,-1);
+            this.Siren_Lamp.active = true;
         }
     },
     Stop_Siren(){       
         this.Siren_Range.active=false;
         this.Siren_SFX.node.active = false;
+        this.Siren_Lamp.active = false;
     },
     Enable_Siren(){
         this.Siren_Enabled = true;
@@ -206,12 +214,42 @@ cc.Class({
 
     },
 
-    Play_Animation(clip){
+    Play_Animation(clip,force_play=false,loop=true,additive=false){
 
-        if(this.Model_Root.currentClip !== clip){
-            this.Model_Root.play(clip.name);
+        let state = this.Model_Root.getAnimationState(clip.name);
+
+        if(force_play){
+            if(loop){
+                state.wrapMode = cc.WrapMode.Loop;
+            }else{
+                state.wrapMode = cc.WrapMode.Normal;
+            }
+            if(additive){
+                this.Model_Root.playAdditive(clip.name);
+            }else{
+                this.Model_Root.play(clip.name);
+            }
+        }else{
+            
+            if(state.isPlaying === false){
+                if(loop){
+                    state.wrapMode = cc.WrapMode.Loop;
+                }else{
+                    state.wrapMode = cc.WrapMode.Normal;
+                }
+                if(additive){
+                    this.Model_Root.playAdditive(clip.name);
+                }else{
+                    this.Model_Root.play(clip.name);
+                }
+            }
         }
 
+    },
+
+    Stop_Animation(clip){
+        let state = this.Model_Root.getAnimationState(clip.name);
+        state.stop();
     },
 
 });
