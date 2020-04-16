@@ -1,12 +1,6 @@
 
 
-var CITIZEN_STATE_LIST = cc.Enum({
-    Idle:-1,
-    Walk_Random:-1,
-    Walk_Home:-1,
-    Pause: -1,
-});
-
+var CITIZEN_STATE_LIST = require("citizen_state_list");
 
 // Audio_Presets
 var AUDIO_PRESET_LIST = require("audio_preset_list");
@@ -33,12 +27,16 @@ cc.Class({
 
         Sneeze_SFX_Control:require("audio_action"),
 
-        Model:cc.MeshRenderer,
+        Mesh_Node:cc.SkinnedMeshRenderer,
 
-        Default_Material:cc.Material,
+        Materials:[cc.Material],
 
-        Infected_Material:cc.Material,
+        Model_Root:cc.SkeletonAnimation,
 
+        Idle_Animation:cc.SkeletonAnimationClip,
+        Walk_Animation:cc.SkeletonAnimationClip,
+        Sneeze_Animation:cc.SkeletonAnimationClip,
+        Warn_Animation:cc.SkeletonAnimationClip,
 
     },
 
@@ -58,7 +56,7 @@ cc.Class({
         this.STATE = CITIZEN_STATE_LIST.Idle;
         this.Previous_State = this.STATE;
 
-        this.Idle_Duration = 1; // duration to count
+        this.Idle_Duration = cc.math.randomRange(2,7); // duration to count
         this.Idle_Time = this.Idle_Duration; // count value
 
         this.Walk_Target = null;
@@ -69,7 +67,7 @@ cc.Class({
         this.Walk_Home_Force = 10000;
         this.Walk_Home_Rotation_Speed = 4;
 
-        this.Target_Distance = 400;
+        this.Target_Distance = 1200;
         this.Min_Clear_Distance = 200; // Checks if this much area is clear when setting target.
 
         this.Sensor_Off_Duration = 1;
@@ -79,6 +77,8 @@ cc.Class({
         if(this.Infected){
             this.Set_Infected(true,true);
         }
+        let rnd  = cc.math.randomRangeInt(0,this.Materials.length);
+        this.Mesh_Node.setMaterial(0,this.Materials[rnd]);
 
     },
 
@@ -112,7 +112,7 @@ cc.Class({
                 walk_vec.mulSelf(this.Walk_Force*(dt*60));
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
-                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Rotation_Speed);
+                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Rotation_Speed*(dt*60));
                 
             break;
 
@@ -124,7 +124,7 @@ cc.Class({
                 walk_vec.mulSelf(this.Walk_Home_Force*(dt*60));
                 this.Rigid_Body.applyForceToCenter(walk_vec,true);
 
-                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Walk_Home_Rotation_Speed);
+                this.Rotate_To( -cc.misc.radiansToDegrees( walk_vec.signAngle( cc.Vec2.UP ) ) , this.Walk_Home_Rotation_Speed*(dt*60));
                 
             break;
 
@@ -144,6 +144,7 @@ cc.Class({
                 this.STATE = CITIZEN_STATE_LIST.Idle;
                 this.Walk_Target = null;
                 this.Deactivate_Sensor();
+                this.Play_Animation(this.Idle_Animation);
             break;
 
             case CITIZEN_STATE_LIST.Walk_Random:
@@ -153,13 +154,22 @@ cc.Class({
                 this.Deactivate_Sensor();
                 this.scheduleOnce(this.Activate_Sensor,this.Sensor_Off_Duration);
                 this.STATE = CITIZEN_STATE_LIST.Walk_Random;
+                this.Play_Animation(this.Walk_Animation);
             break;
 
             case CITIZEN_STATE_LIST.Walk_Home:
-                this.Set_Walk_Home_Target();
+                if(this.STATE === CITIZEN_STATE_LIST.Jump_Before_Go_Home || this.STATE === CITIZEN_STATE_LIST.Walk_Home) {
+                    return;
+                }
+                this.STATE = CITIZEN_STATE_LIST.Jump_Before_Go_Home;
+                this.Play_Animation(this.Walk_Animation);
+                this.Play_Animation(this.Warn_Animation,false,false,true);
                 this.Deactivate_Sensor();
-                this.scheduleOnce(this.Activate_Sensor,this.Sensor_Off_Duration);
-                this.STATE = CITIZEN_STATE_LIST.Walk_Home;
+                this.scheduleOnce(function(){
+                    this.Set_Walk_Home_Target();
+                    this.scheduleOnce(this.Activate_Sensor,this.Sensor_Off_Duration);
+                    this.STATE = CITIZEN_STATE_LIST.Walk_Home;
+                }.bind(this),0.5);
             break;
 
             case CITIZEN_STATE_LIST.Pause:
@@ -300,6 +310,7 @@ cc.Class({
         this.scheduleOnce(function(){
             this.Sneeze_Range.active = false;
         }.bind(this),0.25);
+        this.Play_Animation(this.Sneeze_Animation,false,false,true);
     },
 
     Play_Sneeze_SFX(){
@@ -326,17 +337,8 @@ cc.Class({
         
     },
 
-    Go_Home(){
-        switch(this.STATE){
-
-            case CITIZEN_STATE_LIST.Walk_Home:
-
-            break;
-
-            default:
-                this.Change_State(CITIZEN_STATE_LIST.Walk_Home);
-        }
-        
+    Go_Home(){ // Called from player_control
+        this.Change_State(CITIZEN_STATE_LIST.Walk_Home);
     },
 
     Set_Infected(status,internal = false){
@@ -345,7 +347,7 @@ cc.Class({
                 this.Infected = true;
                 this.Start_Sneeze();
                 // this.node.color = new cc.Color(255, 25, 25);
-                this.Model.setMaterial(0,this.Infected_Material);
+                // this.Model.setMaterial(0,this.Infected_Material);
 
                 if(!internal){
                     smsg.Game_Control.Citizen_Infected(1);
@@ -355,8 +357,7 @@ cc.Class({
             if(this.Infected){
                 this.Infected = false;
                 this.Stop_Sneeze();
-                // this.node.color = new cc.Color(255, 255, 255);
-                this.Model.setMaterial(0,this.Default_Material);
+                // this.Model.setMaterial(0,this.Default_Material);
             }
         }
     },
@@ -382,6 +383,43 @@ cc.Class({
     },
 
 
+    Play_Animation(clip,force_play=false,loop=true,additive=false){
+
+        let state = this.Model_Root.getAnimationState(clip.name);
+
+        if(force_play){
+            if(loop){
+                state.wrapMode = cc.WrapMode.Loop;
+            }else{
+                state.wrapMode = cc.WrapMode.Normal;
+            }
+            if(additive){
+                this.Model_Root.playAdditive(clip.name);
+            }else{
+                this.Model_Root.play(clip.name);
+            }
+        }else{
+            
+            if(state.isPlaying === false){
+                if(loop){
+                    state.wrapMode = cc.WrapMode.Loop;
+                }else{
+                    state.wrapMode = cc.WrapMode.Normal;
+                }
+                if(additive){
+                    this.Model_Root.playAdditive(clip.name);
+                }else{
+                    this.Model_Root.play(clip.name);
+                }
+            }
+        }
+
+    },
+
+    Stop_Animation(clip){
+        let state = this.Model_Root.getAnimationState(clip.name);
+        state.stop();
+    },
     
 
 });

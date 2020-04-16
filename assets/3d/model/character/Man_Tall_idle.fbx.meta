@@ -1,0 +1,187 @@
+{
+  "ver": "1.0.15",
+  "uuid": "5c2a4a36-1686-44dc-955e-b7e8bd3bde94",
+  "scaleFactor": 1,
+  "boneCount": 19,
+  "precomputeJointMatrix": false,
+  "animationFrameRate": 30,
+  "subMetas": {
+    "buffer.bin": {
+      "ver": "1.0.0",
+      "uuid": "10ca6f91-13b0-47ed-9573-f01c36287a0f",
+      "name": "buffer.bin",
+      "subMetas": {}
+    },
+    "Man_Tall_2.mesh": {
+      "ver": "1.0.1",
+      "uuid": "4ee9f057-6a97-4727-b6d6-2521128cd713",
+      "verts": 336,
+      "tris": 216,
+      "submeshes": 1,
+      "attributes": [
+        [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ]
+      ],
+      "minPos": {
+        "x": -0.984900653362274,
+        "y": -0.766883611679077,
+        "z": -0.238479226827621
+      },
+      "maxPos": {
+        "x": 0.9869744181633,
+        "y": 1.1272029876709,
+        "z": 0.238479226827621
+      },
+      "name": "Man_Tall_2.mesh",
+      "subMetas": {}
+    },
+    "Man_Tall_idle-0.skeleton": {
+      "ver": "1.0.1",
+      "uuid": "996c166b-9a8c-442c-9b72-8af1cdbb31c6",
+      "name": "Man_Tall_idle-0.skeleton",
+      "subMetas": {}
+    },
+    "CINEMA_4D_Idle.sac": {
+      "ver": "1.0.1",
+      "uuid": "bbf98bc5-9a36-4d09-a4ff-fe5da504aee8",
+      "modelUuid": "5c2a4a36-1686-44dc-955e-b7e8bd3bde94",
+      "animationID": 0,
+      "name": "CINEMA_4D_Idle.sac",
+      "maxFrameCount": 143,
+      "totalFrameCount": 1497,
+      "duration": 7,
+      "animationFrameRate": 30,
+      "subMetas": {}
+    },
+    "Man_Tall_idle.prefab": {
+      "ver": "1.2.7",
+      "uuid": "73638793-d5db-4ed5-ad77-0d473de646fc",
+      "optimizationPolicy": "AUTO",
+      "asyncLoadAssets": false,
+      "readonly": true,
+      "content": [
+        {
+          "__type__": "cc.Prefab",
+          "_name": "",
+          "_objFlags": 0,
+          "data": {
+            "__id__": 1
+          }
+        },
+        {
+          "__type__": "cc.Node",
+          "_name": "Sprite",
+          "_objFlags": 0,
+          "_opacity": 255,
+          "_color": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 255,
+            "b": 255,
+            "a": 255
+          },
+          "_cascadeOpacityEnabled": true,
+          "_parent": null,
+          "_anchorPoint": {
+            "__type__": "cc.Vec2",
+            "x": 0.5,
+            "y": 0.5
+          },
+          "_contentSize": {
+            "__type__": "cc.Size",
+            "width": 40,
+            "height": 36
+          },
+          "_children": [],
+          "_skewX": 0,
+          "_skewY": 0,
+          "_localZOrder": 0,
+          "_globalZOrder": 0,
+          "_tag": -1,
+          "_opacityModifyRGB": false,
+          "_reorderChildDirty": false,
+          "_id": "",
+          "_active": true,
+          "_components": [
+            {
+              "__id__": 2
+            }
+          ],
+          "_prefab": {
+            "__id__": 3
+          },
+          "_eulerAngles": {
+            "__type__": "cc.Vec3",
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "_trs": {
+            "__type__": "TypedArray",
+            "ctor": "Float64Array",
+            "array": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "__type__": "cc.Sprite",
+          "_name": "",
+          "_objFlags": 0,
+          "node": {
+            "__id__": 1
+          },
+          "_enabled": true,
+          "_spriteFrame": {
+            "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+          },
+          "_type": 0,
+          "_sizeMode": 1,
+          "_fillType": 0,
+          "_fillCenter": {
+            "__type__": "cc.Vec2",
+            "x": 0,
+            "y": 0
+          },
+          "_fillStart": 0,
+          "_fillRange": 0,
+          "_isTrimmedMode": true,
+          "_srcBlendFactor": 770,
+          "_dstBlendFactor": 771,
+          "_atlas": null
+        },
+        {
+          "__type__": "cc.PrefabInfo",
+          "root": {
+            "__id__": 1
+          },
+          "asset": null,
+          "fileId": "d7118yAG5lKybkFOAh8koPL"
+        }
+      ],
+      "name": "Man_Tall_idle.prefab",
+      "subMetas": {}
+    },
+    "Man_Tall.mtl": {
+      "ver": "1.0.3",
+      "uuid": "69bd5d53-8ace-4c3c-a19c-7d2537971d66",
+      "dataAsSubAsset": null,
+      "name": "Man_Tall.mtl",
+      "subMetas": {}
+    }
+  }
+}

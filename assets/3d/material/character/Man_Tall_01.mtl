@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Police_Officer - 001",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "358b1020-3f77-4155-8cd0-c979832b5e98"
+        }
+      }
+    }
+  }
+}

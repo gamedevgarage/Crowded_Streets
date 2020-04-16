@@ -1,9 +1,6 @@
 
-var CITIZEN_STATE_LIST = cc.Enum({
-    Idle:-1,
-    Walk_Random:-1,
-    Walk_Home:-1,
-});
+
+var CITIZEN_STATE_LIST = require("citizen_state_list");
 
 cc.Class({
     extends: cc.Component,

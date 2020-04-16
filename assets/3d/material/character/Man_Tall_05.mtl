@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Man_Tall_05",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      },
+      "props": {
+        "diffuseTexture": {
+          "__uuid__": "87e48d53-3c94-4a71-aab6-69e7d9ee4003"
+        }
+      }
+    }
+  }
+}
