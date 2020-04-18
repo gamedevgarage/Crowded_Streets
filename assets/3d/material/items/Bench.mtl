@@ -1,0 +1,30 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Bench",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "abc2cb62-7852-4525-a90d-d474487b88f2"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "props": {
+        "glossiness": 1,
+        "emissiveColor": {
+          "__type__": "cc.Color",
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 255
+        },
+        "diffuseTexture": {
+          "__uuid__": "4f72fc59-444e-471c-af47-34cde3b2e33f"
+        }
+      },
+      "defines": {
+        "USE_DIFFUSE_TEXTURE": true
+      }
+    }
+  }
+}

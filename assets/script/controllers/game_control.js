@@ -168,6 +168,8 @@ cc.Class({
 
         Level_Triggers:[LEVEL_TRIGGER],
 
+        Sun_Root:cc.Node,
+
     },
 
     __preload(){
@@ -200,6 +202,8 @@ cc.Class({
         this.Waiting_Everybody_Home_To_End_Day = false; // flag
         this.Game_Over_Called = false;
         this.Today_Gold_Count = 0;
+        this.Sun_Start = 70;
+        this.Sun_End = -70;
 
         // Actions --------------------
         for(let t = 0 ; t < this.Level_Triggers.length ; t++ )
@@ -310,7 +314,7 @@ cc.Class({
 
         
         // updates
-        this.schedule(this.Update_Day_Time,1);
+        this.schedule(this.Update_Day_Time,0.033333);
         this.schedule( this.Spawn_Citizen , 60/this.Spawn_Rate );
 
         this.Waiting_Everybody_Home_To_End_Day = false;
@@ -361,11 +365,17 @@ cc.Class({
 
     // call every second
     Update_Day_Time(){ 
-        this.Day_Time ++;
+        this.Day_Time += 0.033333;
         if(this.Day_Time >= this.Day_Duration){ // Day end
             this.End_Day_When_Everybody_At_Home();
         }
+        this.Update_Sun();
         this.Update_Day_Indicator();
+    },
+
+    Update_Sun(){
+        let angle = cc.misc.lerp( this.Sun_Start , this.Sun_End , this.Day_Time/this.Day_Duration );
+        this.Sun_Root.eulerAngles = cc.v3(0, angle, 0);
     },
 
     // Shows end day screen

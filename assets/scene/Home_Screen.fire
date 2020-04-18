@@ -332,8 +332,8 @@
       "__id__": 7
     },
     "_enabled": true,
-    "Info_Log": true,
-    "Analytics_Enabled": true,
+    "Info_Log": false,
+    "Analytics_Enabled": false,
     "Analytics_Initialized": false,
     "_id": "9bdqdK2sBOyYbmQ9Z3IWsw"
   },
@@ -1475,7 +1475,7 @@
       "array": [
         0,
         0,
-        553.3902330182564,
+        589.7632999772028,
         0,
         0,
         0,

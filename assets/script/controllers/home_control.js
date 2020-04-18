@@ -29,7 +29,11 @@ cc.Class({
        if(force || ( node.citizen_control && node.citizen_control.STATE === CITIZEN_STATE_LIST.Walk_Home ) ){
             node.active = false;
             node.parent = null;
+            
+            smsg.Camera_Control.Add_Node_Tree_To_Mesh_List(node);
+
             smsg.Game_Control.Home_Citizen(node);
+            
         }
     }, 
 
@@ -47,6 +51,8 @@ cc.Class({
         citizen_node.citizen_control.Change_State(CITIZEN_STATE_LIST.Walk_Random);
 
         citizen_node.active = true;
+
+        smsg.Camera_Control.Add_Node_Tree_To_Mesh_List(citizen_node);
 
     },
 
