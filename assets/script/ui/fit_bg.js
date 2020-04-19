@@ -16,6 +16,7 @@ cc.Class({
         }else{
             cc.view.on('canvas-resize', this.onResized, this);
         }
+        this.onResized();
     },
 
     start () {
@@ -28,7 +29,6 @@ cc.Class({
             let h_ratio = this.Canvas.height/this.node.height;
             this.node.scale = Math.max(w_ratio,h_ratio);
         },0);
-        
     },
 
 });

@@ -8,7 +8,7 @@ cc.Class({
 
     properties: {
 
-        Sprite:cc.Sprite,
+        // Sprite:cc.Sprite,
 
     },
 

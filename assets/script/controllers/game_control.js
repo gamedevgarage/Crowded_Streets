@@ -118,6 +118,8 @@ cc.Class({
 
     properties: {
 
+        UI_Layer_Prefab:cc.Prefab,
+
         Citizen_Prefab:{
             default:null,
             type:cc.Prefab,
@@ -174,7 +176,7 @@ cc.Class({
 
     __preload(){
         smsg.Game_Control = this; // globalize
-        let ui_layer = cc.instantiate(smsg.Main_Game_Control.UI_Layer_Prefab);
+        let ui_layer = cc.instantiate(this.UI_Layer_Prefab);
         ui_layer.parent = cc.find("Canvas");
     },
 

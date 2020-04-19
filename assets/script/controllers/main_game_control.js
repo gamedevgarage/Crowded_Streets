@@ -18,8 +18,6 @@ cc.Class({
 
     properties: {
 
-        UI_Layer_Prefab:cc.Prefab,
-        
         End_Day_Screen:cc.Prefab,
 
         Game_Over_Screen:cc.Prefab,

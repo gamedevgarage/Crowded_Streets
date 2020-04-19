@@ -72,7 +72,7 @@ cc.Class({
         target_pos.x = cc.misc.clampf(target_pos.x,this.X_min,this.X_max);
         target_pos.y = cc.misc.clampf(target_pos.y,this.Y_min,this.Y_max);
 
-        pos.lerp(target_pos, 1.5*dt, pos);
+        pos.lerp(target_pos, Math.min(1,1.5*dt), pos);
 
         pos = this.node.parent.convertToNodeSpaceAR(pos);
 
