@@ -168,9 +168,11 @@ cc.Class({
             type:[DAY_SETUP],
         }, */
 
+        Sun_Root:cc.Node,
+
         Level_Triggers:[LEVEL_TRIGGER],
 
-        Sun_Root:cc.Node,
+        
 
     },
 
@@ -447,7 +449,12 @@ cc.Class({
 
         this.Today_Gold_Count = 0;
 
-        this.Start_Day();
+        smsg.Main_Game_Control.Fade_Out_Screen(0.3);
+        this.scheduleOnce(()=>{
+            this.Start_Day();
+            smsg.Main_Game_Control.Fade_In_Screen(0.3);
+        },0.3);
+
     },
 
 });

@@ -9,7 +9,16 @@
   "_techniqueIndex": 0,
   "_techniqueData": {
     "0": {
-      "defines": {}
+      "defines": {},
+      "props": {
+        "white_point": {
+          "__type__": "cc.Color",
+          "r": 192,
+          "g": 192,
+          "b": 192,
+          "a": 255
+        }
+      }
     }
   }
 }

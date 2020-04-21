@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Trash",
+    "_name": "Barrier",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -43,8 +43,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 200,
+      "height": 64
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -55,34 +55,34 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        1093.77,
-        -698.032,
+        653.102,
+        -1033.804,
         0,
         0,
         0,
-        -0.7071067811865475,
-        0.7071067811865476,
-        1.5,
-        1.5,
-        1.5
+        0,
+        1,
+        1,
+        1,
+        1
       ]
     },
     "_eulerAngles": {
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": -90
+      "z": 0
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_is3DNode": true,
+    "_is3DNode": false,
     "_groupIndex": 3,
     "groupIndex": 3,
     "_id": ""
   },
   {
     "__type__": "cc.Node",
-    "_name": "Trash_2",
+    "_name": "Barrier_2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -154,11 +154,11 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "f7b20b9e-5b94-486d-8180-d8bdea2c1aa7"
+        "__uuid__": "d86ea0db-b96d-4f4c-9452-f1fda721645e"
       }
     ],
     "_mesh": {
-      "__uuid__": "094a8e5f-1d0b-4b14-aa8e-3e382178296f"
+      "__uuid__": "35ee50f1-e2b5-47c2-862c-d33e0fd38746"
     },
     "_receiveShadows": true,
     "_shadowCastingMode": 1,
@@ -172,9 +172,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "4c90b21d-13c7-4367-88a8-1c8e15219351"
+      "__id__": 0
     },
-    "fileId": "3fdaOlMs9KGLXeUobwBrVA",
+    "fileId": "eanoe9zh1Ia7+XrGi6A/5K",
     "sync": false
   },
   {
@@ -203,7 +203,7 @@
     "_id": ""
   },
   {
-    "__type__": "cc.PhysicsCircleCollider",
+    "__type__": "cc.PhysicsBoxCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -221,7 +221,11 @@
       "x": 0,
       "y": 0
     },
-    "_radius": 15,
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 204,
+      "height": 64
+    },
     "_id": ""
   },
   {
@@ -230,9 +234,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "4c90b21d-13c7-4367-88a8-1c8e15219351"
+      "__id__": 0
     },
-    "fileId": "f8h0BYpwFEgafH3NZN6TXw",
+    "fileId": "abbtBVSrhAM4erzlx4BflL",
     "sync": false
   }
 ]

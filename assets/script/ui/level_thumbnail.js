@@ -24,7 +24,7 @@ cc.Class({
 
     onLoad () {
 
-        this.Day_Number_Label = cc.find("Day_Group/Day_Number",this.node).getComponent(cc.Label);
+        // this.Day_Number_Label = cc.find("Day_Group/Day_Number",this.node).getComponent(cc.Label);
         this.Update_Thumbnail();
     },
 
@@ -48,7 +48,7 @@ cc.Class({
 
     Activate_Level(day_number){
         this.Activated = true;
-        this.Day_Number_Label = day_number;
+        // this.Day_Number_Label = day_number;
     },
 
     onDestroy(){

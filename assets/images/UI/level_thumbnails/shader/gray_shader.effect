@@ -10,6 +10,7 @@ CCEffect %{
       rasterizerState:
         cullMode: none
       properties:
+        white_point: { value: [1, 1, 1, 1], editor: { type: color } }
         texture: { value: white }
 }%
 
@@ -44,11 +45,15 @@ precision highp float;
 uniform sampler2D texture;
 in mediump vec2 v_uv0;
 in vec4 v_color;
+uniform GrayScale {
+  lowp vec4 white_point;
+};
 
 void main () {
+
   vec4 color = v_color;
   CCTexture(texture, v_uv0, color);
-  float gray = 0.38*color.r + 0.38*color.g + 0.38*color.b;
+  float gray = (white_point.r*color.r + white_point.g*color.g + white_point.b*color.b)*0.33333333 ;
   gl_FragColor = vec4(gray, gray, gray, color.a);
 }
 

@@ -26,6 +26,8 @@ cc.Class({
 
         Audio_Sources_Prefab:cc.Prefab,
 
+        Black_Screen_Prefab:cc.Prefab,
+
         Debug_Draw:false,
         
 
@@ -375,6 +377,10 @@ cc.Class({
                         node._components[i].pause();
                     break;
 
+                    case "cc.SkeletonAnimation":
+                        node._components[i].pause();
+                    break;
+
                 }
 
             }
@@ -412,11 +418,47 @@ cc.Class({
                         node._components[i].resume();
                     break;
 
+                    case "cc.SkeletonAnimation":
+                        node._components[i].resume();
+                    break;
+
                 }
                 
             }
         }
         
+    },
+
+    Fade_In_Screen(duration){
+
+        if(!this.Black_Screen || !this.Black_Screen.isValid){
+            this.Black_Screen = cc.instantiate(this.Black_Screen_Prefab);
+            smsg.UI_Layer.addChild(this.Black_Screen,1000,"Black_Screen");
+        }
+
+        this.Black_Screen.active = true;
+        this.Black_Screen.opacity=255;
+        let fade = cc.fadeOut(duration).easing(cc.easeInOut(2));
+        let seq = cc.sequence(fade, cc.callFunc( function() { this.Black_Screen.active=false; }.bind(this) , this) );
+        this.Black_Screen.stopAllActions();
+        this.Black_Screen.runAction(seq);
+
+    },
+
+    Fade_Out_Screen(duration){
+
+        if(!this.Black_Screen || !this.Black_Screen.isValid){
+            this.Black_Screen = cc.instantiate(this.Black_Screen_Prefab);
+            smsg.UI_Layer.addChild(this.Black_Screen,1000,"Black_Screen");
+        }
+
+        this.Black_Screen.active=true;
+        this.Black_Screen.opacity=0;
+
+        let fade = cc.fadeIn(duration).easing(cc.easeInOut(2));
+        this.Black_Screen.stopAllActions();
+        this.Black_Screen.runAction(fade);
+
     },
 
  

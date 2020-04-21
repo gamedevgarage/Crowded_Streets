@@ -8,19 +8,25 @@ cc.Class({
 
 
     onLoad () {
+
         this.Canvas = cc.find("Canvas");
+        this.OnResized_Bound = this.onResized.bind(this);
         if(cc.sys.isBrowser && cc.sys.isMobile){
-            let thisOnResized = this.onResized.bind(this);
-            window.addEventListener('resize', thisOnResized);
-            window.addEventListener('orientationchange', thisOnResized);
+            window.addEventListener('resize', this.OnResized_Bound);
+            window.addEventListener('orientationchange', this.OnResized_Bound);
         }else{
             cc.view.on('canvas-resize', this.onResized, this);
         }
         this.onResized();
     },
-
-    start () {
-        
+    
+    onDestroy(){
+        if(cc.sys.isBrowser && cc.sys.isMobile){
+            window.removeEventListener('resize', this.OnResized_Bound);
+            window.removeEventListener('orientationchange', this.OnResized_Bound);
+        }else{
+            cc.view.off('canvas-resize', this.onResized, this);
+        }
     },
 
     onResized(){
