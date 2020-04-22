@@ -3,6 +3,12 @@ var INPUT_CHANNEL_LIST = require("input_channel_list");
 
 var INPUT_TYPE = require("input_type");
 
+var KEY_LIST = cc.Enum(cc.macro.KEY);
+
+var JOYSTICK_KEYS = cc.Enum({
+    WASD: -1,
+    Arrows:-1,
+});
 
 cc.Class({
     extends: cc.Component,
@@ -26,6 +32,22 @@ cc.Class({
             },
         },
 
+        Key:{
+            default:0,
+            type: KEY_LIST,
+            visible(){
+                return this.Input_Type === INPUT_TYPE.Button;
+            }
+        },
+
+        Joystick_Keys:{
+            default:JOYSTICK_KEYS.Arrows,
+            type:JOYSTICK_KEYS,
+            visible(){
+                return this.Input_Type === INPUT_TYPE.Joystick;
+            },
+        }
+
     },
 
     onLoad () {
@@ -36,11 +58,17 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_START, this.Joystick_Touch_Start, this);
                 this.node.on(cc.Node.EventType.TOUCH_END, this.Joystick_Touch_End, this);
                 this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.Joystick_Touch_End, this);
+                cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.Joystick_onKeyDown, this);
+                cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.Joystick_onKeyUp, this);
             break;
             case INPUT_TYPE.Button:
                 this.node.on(cc.Node.EventType.TOUCH_START, this.Button_Touch_Start, this);
                 this.node.on(cc.Node.EventType.TOUCH_END, this.Button_Touch_End, this);
                 this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.Button_Touch_End, this);
+                if(this.Key){
+                    cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+                    cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+                }
             break;
         }
 
@@ -50,12 +78,148 @@ cc.Class({
         this.Joystick_Max = 100;
         this.Joystick_Down = false;
         this.Joystick_Vector = cc.v2();
-        
+        this.Joystick_Key_Vector = cc.v2();
+        this.Key_Vec_Up = 0;
+        this.Key_Vec_Down = 0;
+        this.Key_Vec_Left = 0;
+        this.Key_Vec_Right = 0;        
     },
 
     onDisable(){
         this.Touch_End();
     },
+
+
+    onKeyDown (event) {
+        if(event.keyCode === this.Key){
+            this.Button_Touch_Start();
+        }
+    },
+
+    onKeyUp (event) {
+        if(event.keyCode === this.Key){
+            this.Button_Touch_End();
+        }
+    },
+
+    Joystick_onKeyDown (event) {
+
+        if(this.Joystick_Keys === JOYSTICK_KEYS.WASD){
+
+            switch(event.keyCode){
+
+                case cc.macro.KEY.w:
+                    this.Key_Vec_Up = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.s:
+                    this.Key_Vec_Down = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.a:
+                    this.Key_Vec_Left = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.d:
+                    this.Key_Vec_Right = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+            }
+
+        }else if(this.Joystick_Keys === JOYSTICK_KEYS.Arrows){
+
+            switch(event.keyCode){
+
+                case cc.macro.KEY.up:
+                    this.Key_Vec_Up = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.down:
+                    this.Key_Vec_Down = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.left:
+                    this.Key_Vec_Left = 1;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.right:
+                    this.Key_Vec_Right = 1;
+                    this.Joystick_Key_Update();
+                break;
+                
+            }
+
+        }
+
+    },
+
+    Joystick_onKeyUp (event) {
+
+        if(this.Joystick_Keys === JOYSTICK_KEYS.WASD){
+
+            switch(event.keyCode){
+
+                case cc.macro.KEY.w:
+                    this.Key_Vec_Up = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.s:
+                    this.Key_Vec_Down = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.a:
+                    this.Key_Vec_Left = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.d:
+                    this.Key_Vec_Right = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+            }
+
+        }else if(this.Joystick_Keys === JOYSTICK_KEYS.Arrows){
+
+            switch(event.keyCode){
+
+                case cc.macro.KEY.up:
+                    this.Key_Vec_Up = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.down:
+                    this.Key_Vec_Down = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.left:
+                    this.Key_Vec_Left = 0;
+                    this.Joystick_Key_Update();
+                break;
+
+                case cc.macro.KEY.right:
+                    this.Key_Vec_Right = 0;
+                    this.Joystick_Key_Update();
+                break;
+                
+            }
+
+        }
+
+    },
+
+    
+
 
     Button_Touch_Start(event){
         smsg.Input_Control.Button_Touch_Start(this.Input_Channel);
@@ -77,6 +241,28 @@ cc.Class({
             this.Joystick_Vector = local_touch_pos;
             smsg.Input_Control.Joystick_Touch_Start(this.Input_Channel,this.Joystick_Vector);
         }
+    },
+
+    Joystick_Key_Update(){
+        
+        this.Joystick_Key_Vector.x = this.Key_Vec_Left*(-1) + this.Key_Vec_Right*1;
+        this.Joystick_Key_Vector.y = this.Key_Vec_Down*(-1) + this.Key_Vec_Up*1;
+
+        if(this.Joystick_Key_Vector.x == 0 && this.Joystick_Key_Vector.y == 0){
+            this.Joystick_Touch_End();
+            return;
+        }
+
+        let local_touch_pos = this.Joystick_Key_Vector.mul(100);
+        this.Set_Joystick_Ball_Position(local_touch_pos);
+        // out of dead zone
+        if( this.Check_Dead_Zone(local_touch_pos) ){
+            this.Limit_Joystick_Vector(local_touch_pos);
+            this.Joystick_Down = true;
+            this.Joystick_Vector = local_touch_pos;
+            smsg.Input_Control.Joystick_Touch_Start(this.Input_Channel,this.Joystick_Vector);
+        }
+
     },
 
     Joystick_Touch_End(){

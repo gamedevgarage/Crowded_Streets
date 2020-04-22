@@ -20,8 +20,6 @@ cc.Class({
         
         Music_Button:cc.Sprite,
 
-        Home_Screen_Banner:cc.Node,
-
     },
 
     __preload(){
@@ -58,7 +56,7 @@ cc.Class({
         }
 
         // Show ad banner if exists
-        this.Update_Banner();
+        // this.Update_Banner();
 
     },
 
@@ -104,35 +102,26 @@ cc.Class({
         smsg.Main_Game_Control.Request_Fullscreen();
     },
 
-    Update_Banner(){
-        
+    /* Update_Banner(){
         let self = this;
-        
         cc.loader.load("http://gamedevgarage.com/games/crowded_streets/banner/banner.jpg", function (err, tex) {
             if(err){
                 cc.log("Banner not available"); 
             }else{
-
                 let banner_sprite = self.Home_Screen_Banner.getChildByName("Banner_Sprite").getComponent(cc.Sprite);
                 banner_sprite.spriteFrame = new  cc.SpriteFrame(tex);
-
                 banner_sprite.node.on(cc.Node.EventType.TOUCH_START, function(){
                     cc.sys.openURL("http://gamedevgarage.com/games/crowded_streets/banner/");
                 } , self);
-
                 self.Home_Screen_Banner.on(cc.Node.EventType.TOUCH_START, function(){
                     self.Home_Screen_Banner.active = false;
                 } , self);
-
                 var action = cc.fadeIn(0.3);
                 self.Home_Screen_Banner.active = true;
                 self.Home_Screen_Banner.opacity=0;
-                self.Home_Screen_Banner.runAction(action); 
+                self.Home_Screen_Banner.runAction(action);
             }
-            
         });
-        
-
-    },
+    }, */
 
 });

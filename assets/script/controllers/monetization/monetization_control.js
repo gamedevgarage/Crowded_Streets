@@ -20,6 +20,9 @@ cc.Class({
             tooltip:"Minimum wait time between ads in seconds",
         },
 
+        Self_Ad_Screen_Prefab:cc.Prefab,
+        Self_Ad_Image_URL:"http://gamedevgarage.com/games/crowded_streets/banner/banner.jpg"
+
     },
 
     __preload(){
@@ -53,8 +56,38 @@ cc.Class({
         this.Last_Show_Offer_Time = 0;
         this.Last_Show_Ad_Time = 0;
 
+        // Load ad image from url if exists
+        this.Self_Ad_Sprite_Frame = null;
+        this.Load_Self_Ad_Sprite_Frame();
+
     },
 
+    Load_Self_Ad_Sprite_Frame(){
+
+        let self = this;
+        cc.loader.load("http://gamedevgarage.com/games/crowded_streets/banner/banner.jpg", (err, tex) => {
+            if(err){
+                cc.log("Self ad banner not available"); 
+            }else{
+                this.Self_Ad_Sprite_Frame = new  cc.SpriteFrame(tex);
+            }
+        });
+
+    },
+
+    Show_Self_Ad(rewarded=false){
+        let ad_screen = cc.instantiate(this.Self_Ad_Screen_Prefab);
+        let ad_screen_control = ad_screen.getComponent("self_ad_screen_control");
+        ad_screen_control.Rewarded = rewarded;
+
+        if(this.Self_Ad_Sprite_Frame){
+            let sprite = ad_screen_control.Banner.getComponent(cc.Sprite);
+            sprite.spriteFrame = this.Self_Ad_Sprite_Frame;
+        }
+
+        ad_screen.parent = smsg.UI_Layer;
+
+    },
 
     // Show video and wait for video completed callback
     Show_Rewarded_Video(){
@@ -63,12 +96,11 @@ cc.Class({
         // this.Video_Reward_Achieved();
         // return;
 
-        if(!smsg.Sdkbox_Control.Rewarded_Video_Available()){ // Don't show if not available
-            return;
+        if(smsg.Sdkbox_Control.Rewarded_Video_Available()){ 
+            smsg.Sdkbox_Control.Show_Rewarded_Video();
+        }else{
+            this.Show_Self_Ad(true);
         }
-
-        // Show rewarded video
-        smsg.Sdkbox_Control.Show_Rewarded_Video();
 
         // Analytics Event
         let offer_name = "None";
@@ -146,9 +178,9 @@ cc.Class({
     Show_Interstitial(place_name="None",callback){
 
         // if "Remove_Ads" purchased or no ads available: do nothing
-        if(this.is_Item_Purchased("Remove_Ads") || !smsg.Sdkbox_Control.Interstitial_Available()){
+        if(this.is_Item_Purchased("Remove_Ads")){
             callback(); // return
-            cc.log("ADS REMOVED OR NOT AVAILABLE.");
+            cc.log("ADS REMOVED");
             return;
         }
 
@@ -167,7 +199,11 @@ cc.Class({
         this.Ad_Show_Callback = callback;
 
         // Show ad
-        smsg.Sdkbox_Control.Show_Interstitial();
+        if(smsg.Sdkbox_Control.Interstitial_Available()){
+            smsg.Sdkbox_Control.Show_Interstitial();
+        }else{
+            this.Show_Self_Ad();
+        }
 
         // Analytics Event
         smsg.Analytics_Control.Interstitial(place_name);

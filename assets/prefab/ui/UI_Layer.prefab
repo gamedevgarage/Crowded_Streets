@@ -499,6 +499,8 @@
     "Joystick_Ball": {
       "__id__": 7
     },
+    "Key": 0,
+    "Joystick_Keys": 1,
     "_id": ""
   },
   {
@@ -693,6 +695,8 @@
     "Input_Channel": 3,
     "Input_Type": 0,
     "Joystick_Ball": null,
+    "Key": 49,
+    "Joystick_Keys": 1,
     "_id": ""
   },
   {
@@ -1061,6 +1065,8 @@
     "Input_Channel": 4,
     "Input_Type": 0,
     "Joystick_Ball": null,
+    "Key": 50,
+    "Joystick_Keys": 1,
     "_id": ""
   },
   {
@@ -1429,6 +1435,8 @@
     "Input_Channel": 5,
     "Input_Type": 0,
     "Joystick_Ball": null,
+    "Key": 51,
+    "Joystick_Keys": 1,
     "_id": ""
   },
   {
