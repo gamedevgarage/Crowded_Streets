@@ -76,24 +76,10 @@ cc.Class({
     },
 
     Before_Scene_Load(){
-
         this.node.emit("before_scene_load");
-
-        // Child nodes
-        this.Children_Nodes = [];
-        for(let i = 0 ; i<this.node.children.length ; i++ ){
-            let child = this.node.children[i];
-            this.Children_Nodes.push(child);
-            child.parent = null;
-        }
     },
 
     After_Scene_Load(){
-        for(let i = 0 ; i<this.Children_Nodes.length ; i++ ){
-            let child = this.Children_Nodes[i];
-            child.parent = this.node;
-        }
-
         this.node.emit("after_scene_load");
     },
 

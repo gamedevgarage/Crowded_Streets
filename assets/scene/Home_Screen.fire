@@ -1088,7 +1088,7 @@
       "array": [
         0,
         0,
-        589.7632999772028,
+        426.9505240657283,
         0,
         0,
         0,
@@ -4854,8 +4854,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 340.6,
-      "height": 52
+      "width": 339.46,
+      "height": 65.52
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4922,7 +4922,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_N$cacheMode": 2,
+    "_N$cacheMode": 0,
     "_id": "e0yKHACINJ7KddsIq9Dp3e"
   },
   {
