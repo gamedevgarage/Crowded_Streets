@@ -30,7 +30,7 @@ cc.Class({
             node.active = false;
             node.parent = null;
             
-            smsg.Camera_Control.Add_Node_Tree_To_Mesh_List(node);
+            smsg.Camera_Control.Remove_Node_Tree_From_Mesh_List(node);
 
             smsg.Game_Control.Home_Citizen(node);
             

@@ -50,7 +50,7 @@ cc.Class({
         }
     },
 
-    Remove_Node_Tree_To_Mesh_List(node){
+    Remove_Node_Tree_From_Mesh_List(node){
         let meshes = node.getComponentsInChildren(cc.MeshRenderer);
         for(let i = 0 , n = meshes.length ; i < n ; i++ ){
             let index = this.Mesh_List.indexOf(meshes[i]);
